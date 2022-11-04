@@ -42,8 +42,8 @@ img {
     color: #f4f4f4;
 }
   
-#sign-in-form {
-    max-width: 960px;
+.details-form {
+    max-width: 600px;
     margin: 30px auto;
     background: #1D306D ;
     padding: 30px;
@@ -52,26 +52,34 @@ img {
     color: #f4f4f4 ;
     text-align: center;
 }
-  
-#sign-in-form submit {
-    display: block;
-    width: 27%;
-    padding: 12px;
-    padding: 10px;
+
+
+.details-form input{
+    width: 175px;
+    height: 20px;
+}
+
+
+.details-form #login {
     background: rgba(16, 196, 10, 0.8);
     border: none;
     color: #f4f4f4 ;
-    margin-top: 20px;
     cursor: pointer;
+    text-align: center;
 }
   
-#sign-in-form submit:hover {
+.details-form  #login:hover {
     background: rgba(16, 196, 1);
 }
   
-a {
-    color: #f4f4f4;
+.details-form a {
+    color: #E1D9D1;
+    font-size: 10px;
   
+}
+
+.details-form .register{
+    font-size: 14px;
 }
   
 a:hover {
