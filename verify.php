@@ -4,7 +4,6 @@ $_SESSION['loggedin'] = false;
 ?>
 
 <?php
-
 $serverAddress = "localhost";
 $serverUsername = "root";
 $serverPassword = "";

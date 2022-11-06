@@ -81,6 +81,14 @@ img {
 .details-form .register{
     font-size: 14px;
 }
+
+
+.details-form #sex {
+    width: 145px;
+    height: 20px;
+  
+}
+
   
 a:hover {
     color: rgba(16, 196, 0.8);

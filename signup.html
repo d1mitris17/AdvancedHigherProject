@@ -7,17 +7,21 @@
 <body>
 <div class="details-form">
         <h1>Springfield General Hospital</h1>
-        <form action="add.php" method="POST">
-            <input name="patientID" type="text" placeholder="PatientID" required>
+        <form action="addpatient.php" method="POST">
+            <input name="name" type="text" placeholder="Name" required>
+            <input name="surname" type="text" placeholder="Surname" required>
             <br><br>
             <input name="email" type="email" placeholder="Email" required>
+            <input name="dob" type="date" placeholder="Date Of Birth" max="2023-12-31" required>
             <br><br>
             <input type="password" name="password" required placeholder="Password">
-            <br><br>
-            <input name="confirmpassword" type="password" placeholder="Confirm Password" required>
+            <label for="Sex">Sex:</label>
+            <select name="sex" id="sex" required >
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+            </select>
             <br><br>
             <input type="submit" id="login" value="Register">
-            <br><br>
         </form>
     </div>
     <div class="details-form">
