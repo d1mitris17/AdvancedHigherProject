@@ -25,10 +25,14 @@ if(isset($_POST['Register'])) {
     $pword = $_POST['password'];
     $sex = $_POST['sex'];
 
+
     $sql_query = "INSERT INTO patient(Pword, fname, Surname, EmailAddress, DateofBirth, Sex) VALUES('$pword','$name','$surname','$email','$dob','$sex')";
 
     if(mysqli_query($connection, $sql_query)){
-        echo "completo";
+        $sql_query2 = "SELECT * FROM patient WHERE EmailAddress = '$email'";
+        $row = mysqli_fetch_array(mysqli_query($connection, $sql_query2));
+        $_SESSION['pk'] = $row['PatientID'];
+        $_SESSION['loggedin'] = true;
         header('Location: home.php');
     } else{
         header('Location: index.html');

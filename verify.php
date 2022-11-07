@@ -1,13 +1,12 @@
 <?php
 session_start();
-$_SESSION['loggedin'] = false;
 ?>
 
 <?php
 $serverAddress = "localhost";
 $serverUsername = "root";
 $serverPassword = "";
-$serverDB = "HospitalManagementSystem";
+$serverDB = "hospitalmanagementsystem";
 
 
 $connection = mysqli_connect($serverAddress, $serverUsername, $serverPassword, $serverDB);
@@ -18,18 +17,19 @@ if(mysqli_connect_errno()) {
 }
 
 
-if(isset($_POST['Login'])) {
+if(isset($_POST['login'])) {
     $email = $_POST['email'];
     $pword = $_POST['password'];
 
-    $sql_query = "SELECT * FROM patient WHERE email = '$email' AND userPass = '$password'";
+    $sql_query = "SELECT * FROM patient WHERE EmailAddress=$email AND Pword=$pword";
 
     $result = mysqli_query($connection, $sql_query);
 
-    if(mysqli_num_rows($result) > 0){
+    if(mysqli_query($connection, $sql_query)){
         $row = mysqli_fetch_array($result);
-        $_SESSION['Name'] = $row['Name'];
+        $_SESSION['Name'] = $row['fname'];
         $_SESSION['loggedin'] = true;
+        $_SESSION['pk'] = $row['PatientID'];
         header('Location: home.php');
     } else{
         header('Location: index.html');

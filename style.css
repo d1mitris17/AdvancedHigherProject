@@ -60,6 +60,18 @@ img {
 }
 
 
+.details-form #Register {
+    background: rgba(16, 196, 10, 0.8);
+    border: none;
+    color: #f4f4f4 ;
+    cursor: pointer;
+    text-align: center;
+}
+  
+.details-form  #Register:hover {
+    background: rgba(16, 196, 1);
+}
+
 .details-form #login {
     background: rgba(16, 196, 10, 0.8);
     border: none;
@@ -71,7 +83,7 @@ img {
 .details-form  #login:hover {
     background: rgba(16, 196, 1);
 }
-  
+
 .details-form a {
     color: #E1D9D1;
     font-size: 10px;

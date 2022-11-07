@@ -1,6 +1,6 @@
 <?php
-$_SESSION['loggedin'] = true;
-include 'verify.php';
+session_start();
+include 'loggedin.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
