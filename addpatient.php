@@ -1,6 +1,5 @@
 <?php
 session_start();
-$_SESSION['loggedin'] = false;
 ?>
 
 <?php
@@ -8,13 +7,13 @@ $_SESSION['loggedin'] = false;
 $serverAddress = "localhost";
 $serverUsername = "root";
 $serverPassword = "";
-$serverDB = "HospitalManagementSystem";
+$serverDB = "hospitalmanagementsystem";
 
 
 $connection = mysqli_connect($serverAddress, $serverUsername, $serverPassword, $serverDB);
 
-if(mysqli.connect_errno()){
-    die("Failed to connect")
+if(mysqli_connect_errno()){
+    die("Failed to connect".mysqli_connect_errno());
 }
 
 
@@ -26,18 +25,17 @@ if(isset($_POST['Register'])) {
     $pword = $_POST['password'];
     $sex = $_POST['sex'];
 
-    $sql_query = "INSERT INTO `patient`(`Password`, `Name`, `Surname`, `Email Address`, `Date of Birth`, `Sex`) VALUES ('$pword','$name','$surname','$email','$dob','$sex')";
+    $sql_query = "INSERT INTO patient(Pword, fname, Surname, EmailAddress, DateofBirth, Sex) VALUES('$pword','$name','$surname','$email','$dob','$sex')";
 
-    $result = mysqli_query($connection, $sql_query);
-
-    if(mysqli_num_rows($result) > 0){
-        $row = mysqli_fetch_array($result);
-        $_SESSION['Name'] = $row['Name'];
-        $_SESSION['loggedin'] = true;
+    if(mysqli_query($connection, $sql_query)){
+        echo "completo";
         header('Location: home.php');
     } else{
         header('Location: index.html');
     }
+
+    mysqli_close($connection);
+
     }
 
 
