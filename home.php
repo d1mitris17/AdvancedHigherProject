@@ -17,6 +17,7 @@ include 'loggedin.php';
         <li><a href="Appointments.php">Appointments</a></li>
         <li><a href="BookAppointment.php">Book an Appointment</a></li>
         <li><a href="Prescriptions.php">Prescriptions</a></li>
+        <li><a href="signout.php">Sign Out</a></li>
     </ul>    
     
     </div>
