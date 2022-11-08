@@ -6,12 +6,12 @@ include 'loggedin2.php';
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Log in - Springfield General Hospital</title>
+    <title>Log in - Exemplar Healthcare</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="details-form">
-        <h1>Springfield General Hospital</h1>
+        <h1>Exemplar Healthcare</h1>
         <form action="verify.php" method="POST">
             <input name="email" type="email" placeholder="Email" required>
             <br><br>
@@ -23,7 +23,7 @@ include 'loggedin2.php';
         <a href="ResetPassword.php">Forgoten yout Password?</a>
     </div>
     <div class="details-form">
-        <p class="register">Don't have account? <a class="register" href="signup.html">Register</a></p>
+        <p class="register">Don't have account? <a class="register" href="signup.php">Register</a></p>
     </div>
 </body>
 </html>

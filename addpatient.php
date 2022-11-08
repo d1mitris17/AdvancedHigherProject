@@ -31,6 +31,7 @@ if(isset($_POST['Register'])) {
     if(mysqli_query($connection, $sql_query)){
         $sql_query2 = "SELECT * FROM patient WHERE EmailAddress = '$email'";
         $row = mysqli_fetch_array(mysqli_query($connection, $sql_query2));
+        $_SESSION['Name'] = $row['fname'];
         $_SESSION['pk'] = $row['PatientID'];
         $_SESSION['loggedin'] = true;
         header('Location: home.php');

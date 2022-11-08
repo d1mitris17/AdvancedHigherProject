@@ -15,25 +15,35 @@ img {
 .clr {
     clear: both;
 }
-  
+
+/* Navigation Bar */
+
 .nav-bar {
     list-style-type: none;
-    margin: 0;
+    margin: 0px;
     padding: 0px;
     background: #4c6ca0;
     border-radius: 5px;
     overflow: auto;
+    height: 110px;
 }
   
 .nav-bar li {
     display: inline; 
-    float: left;  
+    float:left; 
+    padding: 5px;
 }
  
-
-.nav-bar a{
+.nav-bar a img{
+    float: left;
     display: block; 
-    padding: 8px;  
+    padding: 5px;
+    width: 100px; 
+    height:100px;
+}
+
+.nav-bar a img:hover{
+    opacity: 0.7;
 }
 
 
@@ -42,6 +52,9 @@ img {
     color: #f4f4f4;
 }
   
+
+/* Details form */
+
 .details-form {
     max-width: 600px;
     margin: 30px auto;
@@ -53,12 +66,10 @@ img {
     text-align: center;
 }
 
-
 .details-form input{
     width: 175px;
     height: 20px;
 }
-
 
 .details-form #Register {
     background: rgba(16, 196, 10, 0.8);
@@ -70,6 +81,14 @@ img {
   
 .details-form  #Register:hover {
     background: rgba(16, 196, 1);
+}
+
+.details-form img{
+    display: block;
+    width: 80px; 
+    height:80px;
+    float: left;
+    position: fixed;
 }
 
 .details-form #login {
@@ -101,7 +120,29 @@ img {
   
 }
 
-  
-a:hover {
+.details-form a:hover {
     color: rgba(16, 196, 0.8);
+}
+
+/* Home Contents */
+
+#HomeContents{
+    background: #fff url(images/HospitalBackground.jpg) center top/cover no-repeat content-box fixed;
+    position: absolute;
+    top: 20%;
+    width: 100%;
+    text-align: center;
+    font-size: 18px;
+}
+
+/* Main page How to section */
+
+#how-to{
+    position: absolute;
+    top: 65%;
+    width: 100%;
+    font-size: 18px;
+    column-count: 3;
+
+
 }

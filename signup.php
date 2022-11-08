@@ -6,12 +6,12 @@ include 'loggedin2.php';
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Register - Springfield General Hospital </title>
+    <title>Register - Exemplar Healthcare</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <div class="details-form">
-        <h1>Springfield General Hospital</h1>
+        <img src="images/logo.png" alt="logo">
         <form action="addpatient.php" method="POST">
             <input name="name" type="text" placeholder="Name" required>
             <input name="surname" type="text" placeholder="Surname" required>
