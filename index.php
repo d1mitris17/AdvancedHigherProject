@@ -11,7 +11,7 @@ include 'loggedin2.php';
 </head>
 <body>
     <div class="details-form">
-        <h1>Exemplar Healthcare</h1>
+        <img src="images/logo.png" alt="logo">
         <form action="verify.php" method="POST">
             <input name="email" type="email" placeholder="Email" required>
             <br><br>
@@ -21,9 +21,6 @@ include 'loggedin2.php';
             <br><br>
         </form>
         <a href="ResetPassword.php">Forgoten yout Password?</a>
-    </div>
-    <div class="details-form">
-        <p class="register">Don't have account? <a class="register" href="signup.php">Register</a></p>
     </div>
 </body>
 </html>

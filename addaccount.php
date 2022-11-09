@@ -24,14 +24,15 @@ if(isset($_POST['Register'])) {
     $dob = $_POST['dob'];
     $pword = $_POST['password'];
     $sex = $_POST['sex'];
+    $table = $_POST['table'];
 
 
-    $sql_query = "INSERT INTO patient(Pword, fname, Surname, EmailAddress, DateofBirth, Sex) VALUES('$pword','$name','$surname','$email','$dob','$sex')";
+    $sql_query = "INSERT INTO $table(Pword, fname, Surname, EmailAddress, DateofBirth, Sex) VALUES('$pword','$name','$surname','$email','$dob','$sex')";
 
     if(mysqli_query($connection, $sql_query)){
-        $sql_query2 = "SELECT * FROM patient WHERE EmailAddress = '$email'";
+        $sql_query2 = "SELECT * FROM $table WHERE EmailAddress = '$email'";
         $row = mysqli_fetch_array(mysqli_query($connection, $sql_query2));
-        $_SESSION['Name'] = $row['fname'];
+        $_SESSION['Name'] = $_POST['name'];
         $_SESSION['pk'] = $row['PatientID'];
         $_SESSION['loggedin'] = true;
         header('Location: home.php');

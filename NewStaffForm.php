@@ -1,6 +1,6 @@
 <?php
 session_start();
-include 'loggedin2.php';
+include 'loggedin.php';
 ?>
 
 <!DOCTYPE html>
@@ -10,9 +10,20 @@ include 'loggedin2.php';
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<div class="nav-bar">
+    <a href="home.php"><img src="images/logo.png" alt="logo"></a>
+    <ul>
+        <li><a href="profile.php">Profile</a></li>
+        <li><a href="Appointments.php">Appointments</a></li>
+        <li><a href="BookAppointment.php">Book an Appointment</a></li>
+        <li><a href="Prescriptions.php">Prescriptions</a></li>
+        <li><a href="NewPatientAccountForm.php">Add Patient</a></li>
+        <li><a href="NewStaffForm.php">Add Hospital Staff</a></li>
+        <li><a href="signout.php">Sign Out</a></li>
+    </ul>    
+    </div>
 <div class="details-form">
-        <img src="images/logo.png" alt="logo">
-        <form action="addpatient.php" method="POST">
+        <form action="addaccount.php" method="POST">
             <input name="name" type="text" placeholder="Name" required>
             <input name="surname" type="text" placeholder="Surname" required>
             <br><br>
@@ -22,15 +33,13 @@ include 'loggedin2.php';
             <input type="password" name="password" required placeholder="Password">
             <label for="sex">Sex:</label>
             <select name="sex" id="sex" required >
-                <option value="male">Male</option>
-                <option value="female">Female</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
             </select>
             <br><br>
+            <input type="hidden" name="table" value="staff">
             <input type="submit" name="Register" id="Register" value="Register">
         </form>
-    </div>
-    <div class="details-form">
-        <p class="register">Already have an account? <a class="register" href="index.php">Log in</a></p>
     </div>
 </body>
 </html>

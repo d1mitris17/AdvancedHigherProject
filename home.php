@@ -5,7 +5,7 @@ include 'loggedin.php';
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Document</title>
+    <title>Home Page</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -16,6 +16,8 @@ include 'loggedin.php';
         <li><a href="Appointments.php">Appointments</a></li>
         <li><a href="BookAppointment.php">Book an Appointment</a></li>
         <li><a href="Prescriptions.php">Prescriptions</a></li>
+        <li><a href="NewPatientAccountForm.php">Add Patient</a></li>
+        <li><a href="NewStaffForm.php">Add Hospital Staff</a></li>
         <li><a href="signout.php">Sign Out</a></li>
     </ul>    
     </div>

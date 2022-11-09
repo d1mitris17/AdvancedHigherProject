@@ -34,27 +34,22 @@ session_start();
 
     if(mysqli_num_rows($result)>0) {
         $row = mysqli_fetch_array($result);
-        echo '<div id="update-form">
-        <button id="myButton" class="float-left submit-button" >Edit</button>
-        <script type="text/javascript">
-        document.getElementById("myButton").onclick = function () {
-        location.href = "EditableProfile.php";
-        };
-        </script>
-        <form action="UpdateEntry.php" method="POST">
-        <input type="text" name="Fname" value="'.$row['Fname'].'" disabled>
+        echo '<form action="UpdateEntry.php" id="update-form" method="POST">
+        <input type="text" name="Fname" value="'.$row['Fname'].'">
         <br><br>
-        <input type="text" name="Surname" value="'.$row['Surname'].'" disabled>
+        <input type="text" name="Surname" value="'.$row['Surname'].'">
         <br><br>
-        <input type="email" name="EmailAddress" value="'.$row['EmailAddress'].'" disabled>
+        <input type="email" name="EmailAddress" value="'.$row['EmailAddress'].'">
         <br><br>
-        <input type="text" name="Pword" value="'.$row['Pword'].'" disabled>
+        <input type="text" name="Pword" value="'.$row['Pword'].'">
         <br><br>
-        <input type="date" name="DateOfBirth" value="'.$row['DateofBirth'].'" disabled>
+        <input type="date" name="DateOfBirth" value="'.$row['DateofBirth'].'">
         <br><br>
-        <input type="text" name="Sex" value="'.$row['Sex'].'" disabled>
-    </form>
-    </div>';
+        <input type="text" name="Sex" value="'.$row['Sex'].'">
+        <br><br>
+        <input type="submit" value="Update" name="update">
+    </form>';
+        
         } else{
             header('Location: home.php');
         }
