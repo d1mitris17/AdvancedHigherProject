@@ -14,7 +14,6 @@ include 'loggedin.php';
     <a href="home.php"><img src="images/logo.png" alt="logo"></a>
     <ul>
         <li><a href="profile.php">Profile</a></li>
-        <li><a href="Appointments.php">Appointments</a></li>
         <li><a href="BookAppointment.php">Book an Appointment</a></li>
         <li><a href="Prescriptions.php">Prescriptions</a></li>
         <li><a href="NewPatientAccountForm.php">Add Patient</a></li>

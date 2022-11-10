@@ -28,7 +28,7 @@ if(isset($_POST['update'])) {
     $sql_query = "UPDATE staff SET Fname='$Fname', Surname='$Surname', EmailAddress='$EmailAddress', Pword='$Pword', DateOfBirth='$DateofBirth', Sex='$Sex' WHERE Staff_ID = $pk";
     if(mysqli_query($connection, $sql_query)){
         $_SESSION['Name'] = $Fname;
-        header('Location: home.php');
+        header('Location: profile.php');
     } else{
         header('Location: index.php');
     }

@@ -12,7 +12,6 @@ session_start();
         <a href="home.php"><img src="images/logo.png" alt="logo"></a>
         <ul>
             <li><a href="profile.php">Profile</a></li>
-            <li><a href="Appointments.php">Appointments</a></li>
             <li><a href="BookAppointment.php">Book an Appointment</a></li>
             <li><a href="Prescriptions.php">Prescriptions</a></li>
             <li><a href="NewPatientAccountForm.php">Add Patient</a></li>
@@ -52,7 +51,10 @@ session_start();
         <br><br>
         <input type="date" name="DateOfBirth" value="'.$row['DateofBirth'].'" disabled>
         <br><br>
-        <input type="text" name="Sex" value="'.$row['Sex'].'" disabled>
+        <select name="Sex" disabled>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+        </select>
     </form>
     </div>';
         } else{
