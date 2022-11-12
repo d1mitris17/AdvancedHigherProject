@@ -10,19 +10,18 @@ include 'loggedin.php';
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="nav-bar">
-    <a href="home.php"><img src="images/logo.png" alt="logo"></a>
-    <ul>
-        <li><a href="profile.php">Profile</a></li>
-        <li><a href="BookAppointment.php">Book an Appointment</a></li>
-        <li><a href="Prescriptions.php">Prescriptions</a></li>
-        <li><a href="NewPatientAccountForm.php">Add Patient</a></li>
-        <li><a href="NewStaffForm.php">Add Hospital Staff</a></li>
-        <li><a href="signout.php">Sign Out</a></li>
-    </ul>    
-    </div>
+
+    <ul class="nav-bar">
+        <li><a href="home.php"><img src="images/logo.png" alt="logo"></a></li>
+        <li><a id="link" href="profile.php">Profile</a></li>
+        <li><a id="link" href="BookAppointment.php">Book an Appointment</a></li>
+        <li><a id="link" href="Prescriptions.php">Prescriptions</a></li>
+        <li><a id="link" href="NewPatientAccountForm.php">Add Patient</a></li>
+        <li><a id="link" href="NewStaffForm.php">Add Hospital Staff</a></li>
+        <li><a id="link" href="signout.php">Sign Out</a></li>
+    </ul>  
 <div class="details-form">
-        <form action="addpatient.php" method="POST">
+        <form action="addaccount.php" method="POST">
             <input name="name" type="text" placeholder="Name" required>
             <input name="surname" type="text" placeholder="Surname" required>
             <br><br>

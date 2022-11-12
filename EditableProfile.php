@@ -8,17 +8,15 @@ session_start();
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="nav-bar">
-        <a href="home.php"><img src="images/logo.png" alt="logo"></a>
-        <ul>
-            <li><a href="profile.php">Profile</a></li>
-            <li><a href="BookAppointment.php">Book an Appointment</a></li>
-            <li><a href="Prescriptions.php">Prescriptions</a></li>
-            <li><a href="NewPatientAccountForm.php">Add Patient</a></li>
-            <li><a href="NewStaffForm.php">Add Hospital Staff</a></li>
-            <li><a href="signout.php">Sign Out</a></li>
-        </ul>    
-    </div>
+    <ul class="nav-bar">
+        <li><a href="home.php"><img src="images/logo.png" alt="logo"></a></li>
+        <li><a id="link" href="profile.php">Profile</a></li>
+        <li><a id="link" href="BookAppointment.php">Book an Appointment</a></li>
+        <li><a id="link" href="Prescriptions.php">Prescriptions</a></li>
+        <li><a id="link" href="NewPatientAccountForm.php">Add Patient</a></li>
+        <li><a id="link" href="NewStaffForm.php">Add Hospital Staff</a></li>
+        <li><a id="link" href="signout.php">Sign Out</a></li>
+    </ul>
 
     <div id="details">
     <?php
@@ -34,22 +32,29 @@ session_start();
     if(mysqli_num_rows($result)>0) {
         $row = mysqli_fetch_array($result);
         echo '<form action="UpdateEntry.php" id="update-form" method="POST">
+        <h1>Profile Details</h1>
+        <label for="Fname">First Name: </label>
         <input type="text" name="Fname" value="'.$row['Fname'].'" required>
         <br><br>
+        <label for="Surname">Surname: </label>
         <input type="text" name="Surname" value="'.$row['Surname'].'" required>
         <br><br>
+        <label for="EmailAddress">Email Address: </label>
         <input type="email" name="EmailAddress" value="'.$row['EmailAddress'].'" required>
         <br><br>
+        <label for="Pword">Password: </label>
         <input type="text" name="Pword" value="'.$row['Pword'].'" required>
         <br><br>
+        <label for="DateOfBirth">Date of Birth: </label>
         <input type="date" name="DateOfBirth" value="'.$row['DateofBirth'].'" required>
         <br><br>
+        <label for="Sex">Sex: </label>
         <select name="Sex" required>
             <option value="Male">Male</option>
             <option value="Female">Female</option>
         </select>
         <br><br>
-        <input type="submit" value="Update" name="update">
+        <input type="submit" id="myButton2" value="Update" name="update">
         </form>';
         
         } else{

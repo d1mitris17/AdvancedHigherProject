@@ -16,34 +16,41 @@ img {
 
 .nav-bar {
     list-style-type: none;
-    margin: 0px;
-    padding: 0px;
+    margin: 0rem;
+    padding: 0rem;
     background: #4c6ca0;
-    border-radius: 5px;
+    border-radius: 0.3125rem;
     overflow: auto;
-    height: 110px;
+    height: 6.875rem;
 }
   
 .nav-bar li {
-    display: inline; 
     float:left; 
-    padding: 5px;
+}
+
+
+.nav-bar li a{
+    display: block;
+    color: #fff;
+    text-decoration: none;
+    padding: 15px 20px; 
 }
  
-.nav-bar a img{
-    float: left;
-    display: block; 
-    padding: 5px;
-    width: 100px; 
-    height:100px;
+.nav-bar li a img{
+    float: right;
+    padding: 0px;
+    width: 80px; 
+    height:80px;
 }
 
-.nav-bar a img:hover{
+.nav-bar li a img:hover{
     opacity: 0.7;
+    background-color: #4c6ca0;
+    color: #fff;
 }
 
 
-.nav-bar li a:hover {
+.nav-bar #link:hover {
     background-color: #446190;
     color: #f4f4f4;
 }
@@ -109,7 +116,6 @@ img {
     font-size: 14px;
 }
 
-
 .details-form #sex {
     width: 145px;
     height: 20px;
@@ -125,22 +131,26 @@ img {
 #HomeContents{
     background: #fff url(images/HospitalBackground.jpg) center bottom/cover no-repeat content-box fixed;
     position: absolute;
-    top: 20%;
-    width: 100%;
+    padding-top: 1rem;    
     text-align: center;
     font-size: 18px;
+    padding: 5x;
 }
 
-/* Main page How to section */
+#HomeContents p{
+    margin-left: 20rem;
+    margin-right: 20rem;
+}
+
+/* Main page How to section
 
 #how-to{
     position: absolute;
-    top:100%;
-    width: 100%;
+    top: 51rem;
     font-size: 18px;
     column-count: 3;
 
-}
+} */
 
 
 /*Profile Updtate Details*/
@@ -212,4 +222,19 @@ img {
 
 #update-form a:hover {
     color: rgba(16, 196, 0.8);
+}
+
+#update-form #myButton {
+    float: right;
+      
+}
+
+#update-form #myButton:hover{
+    cursor: pointer;
+    opacity: 0.8;
+}
+
+#update-form #myButton2:hover{
+    cursor: pointer;
+    opacity: 0.8;
 }
