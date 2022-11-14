@@ -1,7 +1,6 @@
 <?php
 session_start();
 include 'loggedin.php';
-$_SESSION['AppointPatientID'] = $id;
 ?>
 
 <!DOCTYPE html>
@@ -21,8 +20,43 @@ $_SESSION['AppointPatientID'] = $id;
         <li><a id="link" href="NewStaffForm.php">Add Hospital Staff</a></li>
         <li><a id="link" href="signout.php">Sign Out</a></li>
     </ul>  
+    <div class="details-form">
+    <form action="FinaliseAppointment.php" method="POST">
+        <label for="doctor">Doctor: </label>
+        <?php  
+        $serverAddress = "localhost";
+        $serverUsername = "root";
+        $serverPassword = "";
+        $serverDB = "hospitalmanagementsystem";
+        $connection = mysqli_connect($serverAddress, $serverUsername, $serverPassword, $serverDB);
+        if(mysqli_connect_errno()) {
+        die("Failed to connect".mysqli_connect_errno());
+        }
+        $sql_query = "SELECT Staff_ID, Fname, Surname FROM staff WHERE StaffType LIKE 'Doctor'";
+        $result = mysqli_query($connection, $sql_query);
+        if(mysqli_num_rows($result)>0){
+            echo("<select name='doctor' id='doctor' required>");
+        while ($row = mysqli_fetch_assoc($result)) {
+            echo "<option value='".$row['Staff_ID']."'>".$row['Fname']." ".$row['Surname']."</option>";
+            }
+        echo("</select>");
+        }?>
 
-    <input type='date' id='hasta' value='<?php echo date('Y-m-d');?>'>
+        <br><br>
+        <label for="StartTime">Start Time: </label>
+        <input type="time" name="StartTime" id="start_time" min="09:00" min="17:00">
+        <br><br>
+        <label for="EndTime">End Time: </label>
+        <input type="time" name="EndTime" id="end_time" min="09:00" min="17:00">
+        <br><br>
+        <label for="date">Date: </label>
+        <input type='date' name="date" value="<?php echo date('Y-m-d', strtotime(date('Y-m-d').'+ 1 days'));?>">
+        <input type="hidden" value="<?php $_GET['id']?>" name="patient_id">
+        <br><br>
+        <input type="submit" name="Book" value="Book" id="login">
+    </form>
+    </div>
+    
 
 
 </body>
