@@ -51,7 +51,13 @@ include 'loggedin.php';
         <br><br>
         <label for="date">Date: </label>
         <input type='date' name="date" min="<?php echo date('Y-m-d', strtotime(date('Y-m-d').'+ 1 days'));?>" value="<?php echo date('Y-m-d', strtotime(date('Y-m-d').'+ 1 days'));?>">
-        <input type="hidden" value="<?php $_GET['id']?>" name="patient_id">
+        <input type="hidden" value="<?php 
+        if (isset($_GET['id'])){
+            echo $_GET['id'];
+        } else {
+            header('Location: BookAppointment.php');
+        }
+        ?>" name="patient_id">
         <br><br>
         <input type="submit" name="Book" value="Book" id="login">
     </form>
