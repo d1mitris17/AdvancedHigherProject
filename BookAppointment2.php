@@ -50,7 +50,7 @@ include 'loggedin.php';
         <input type="time" name="EndTime" id="end_time" min="09:00" min="17:00">
         <br><br>
         <label for="date">Date: </label>
-        <input type='date' name="date" value="<?php echo date('Y-m-d', strtotime(date('Y-m-d').'+ 1 days'));?>">
+        <input type='date' name="date" min="<?php echo date('Y-m-d', strtotime(date('Y-m-d').'+ 1 days'));?>" value="<?php echo date('Y-m-d', strtotime(date('Y-m-d').'+ 1 days'));?>">
         <input type="hidden" value="<?php $_GET['id']?>" name="patient_id">
         <br><br>
         <input type="submit" name="Book" value="Book" id="login">
