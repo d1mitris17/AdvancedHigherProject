@@ -5,7 +5,25 @@ include 'loggedin.php';
 
 <?php
 
-/* create function */
+function find_conflicts($Appointments){
+    $conflicts = array();
+    $temp_conflicts = array($Appointments[0][2]);
+    $end = $Appointments[0][1];
+    for ($ii=1; $ii<count($Appointments); $ii++){
+        if ($Appointments[$ii][0]>=$end){
+            if(count($temp_conflicts)>1){
+                $conflicts[] = $temp_conflicts;
+            }
+            $temp_conflicts = array();
+        }
+        $end = max($Appointments[$ii][1], $end);
+        $temp_conflicts[] = $Appointments[$ii][2];
+    }
+    if(count($temp_conflicts)>1){
+        $conflicts[] = $temp_conflicts;
+    }
+    return $conflicts;
+}
 
 $serverAddress = "localhost";
 $serverUsername = "root";
@@ -31,14 +49,23 @@ if(isset($_POST['Book'])) {
     $sql_query = "INSERT INTO appointments(Staff_ID, PatientID, StartTime, EndTime, AppDate) VALUES('$DoctorID','$PatientID','$StartTime','$EndTime','$Date')";
 
     if(mysqli_query($connection, $sql_query)){
-        $all_appointments = "SELECT * FROM appointments WHERE Staff_ID=$DoctorID AND AppDate=$Date";
+        $all_appointments = "SELECT StartTime, EndTime, AppointmentID FROM appointments WHERE Staff_ID=$DoctorID AND AppDate='$Date'";
         $result = mysqli_query($connection, $all_appointments);
-        $arr = mysqli_fetch_array($result);
-        /* call function */
+        $rows = array();
+        while($row = mysqli_fetch_array($result)) {
+            $rows[] = $row;
+        }
+        $_SESSION['Conflicts'] = find_conflicts($Appointments);
+        if(count($_SESSION['Conflicts'])>1){
+            header('Location: show_conflicts.php');
+        } else{
+            header('Location: home.php');
+            // add message
+        }
+        
 
-        header('Location: home.php');
     } else{
-        /* find way to add failled message*/
+        // find way to add failled message
         header('Location: home.php');
     }
 
