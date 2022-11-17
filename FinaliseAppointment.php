@@ -49,18 +49,19 @@ if(isset($_POST['Book'])) {
     $sql_query = "INSERT INTO appointments(Staff_ID, PatientID, StartTime, EndTime, AppDate) VALUES('$DoctorID','$PatientID','$StartTime','$EndTime','$Date')";
 
     if(mysqli_query($connection, $sql_query)){
-        $all_appointments = "SELECT StartTime, EndTime, AppointmentID FROM appointments WHERE Staff_ID=$DoctorID AND AppDate='$Date'";
+        $all_appointments = "SELECT StartTime, EndTime, AppointmentID FROM appointments WHERE Staff_ID=$DoctorID AND AppDate='$Date' ORDER BY StartTime ASC";
         $result = mysqli_query($connection, $all_appointments);
-        $rows = array();
+        $Appointments = array();
         while($row = mysqli_fetch_array($result)) {
-            $rows[] = $row;
+            $Appointments[] = $row;
         }
-        $_SESSION['Conflicts'] = find_conflicts($Appointments);
-        if(count($_SESSION['Conflicts'])>1){
+        $conflicts = find_conflicts($Appointments);
+        $_SESSION['Conflicts'] = $conflicts;
+        if(count($_SESSION['Conflicts'])>0){
             header('Location: show_conflicts.php');
         } else{
             header('Location: home.php');
-            // add message
+            // add message (success)
         }
         
 
