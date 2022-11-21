@@ -58,7 +58,7 @@ if(isset($_POST['Book'])) {
         $conflicts = find_conflicts($Appointments);
         $_SESSION['Conflicts'] = $conflicts;
         if(count($_SESSION['Conflicts'])>0){
-            header('Location: show_conflicts.php');
+            header('Location: conflicts_found.php');
         } else{
             header('Location: home.php');
             // add message (success)

@@ -18,23 +18,24 @@ include 'loggedin.php';
         <li><a id="link" href="NewPatientAccountForm.php">Add Patient</a></li>
         <li><a id="link" href="NewStaffForm.php">Add Hospital Staff</a></li>
         <li><a id="link" href="signout.php">Sign Out</a></li>
-</ul>
+    </ul>
+    </div>
+
 <?php
-$serverAddress = "localhost";
-$serverUsername = "root";
-$serverPassword = "";
-$serverDB = "hospitalmanagementsystem";
+if(isset($_SESSION['Conflicts'])){
+    
+    $serverAddress = "localhost";
+    $serverUsername = "root";
+    $serverPassword = "";
+    $serverDB = "hospitalmanagementsystem";
 
 
-$connection = mysqli_connect($serverAddress, $serverUsername, $serverPassword, $serverDB);
+    $connection = mysqli_connect($serverAddress, $serverUsername, $serverPassword, $serverDB);
 
-if(mysqli_connect_errno()){
-    die("Failed to connect".mysqli_connect_errno());
-}
-
-$all_conflicts = "SELECT * FROM Appointments WHERE Overlapping=1";
-$result = mysqli_query($connection, $all_conflicts);
-if(mysqli_num_rows($result)>0){
+    if(mysqli_connect_errno()){
+        die("Failed to connect".mysqli_connect_errno());
+    }
+    $conflicts = $_SESSION['Conflicts'];
     echo "<h1>Conflicts have been detected</h1>";
     echo "<table>";
     echo '<tr>';
@@ -45,7 +46,13 @@ if(mysqli_num_rows($result)>0){
     echo '<th>EndTime</th>';
     echo '<th>AppDate</th>';
     echo '</tr>';
-    while($row=mysqli_fetch_array($result)){
+    for ($ii=0; $ii<count($conflicts[0]); $ii++){
+        $temp1 = $conflicts[0][$ii];
+        $all_conflicts = "SELECT * FROM Appointments WHERE AppointmentID=$temp1";
+        $update = "UPDATE Appointments SET Overlapping=1 WHERE AppointmentID= $temp1"; 
+        $result = mysqli_query($connection, $all_conflicts);
+        mysqli_query($connection, $update);
+        $row = mysqli_fetch_array($result);
         echo '<tr>';
         echo '<td>' .$row['AppointmentID'].'</td>';
         echo '<td>' .$row['PatientID'].'</td>';
@@ -56,13 +63,8 @@ if(mysqli_num_rows($result)>0){
         echo '</tr>';
     }
     echo "<table>";
-}else{
-    echo "<h1>No Conflicts in Appointments</h1>";
-}
-    
-
-mysqli_close($connection);
-    
+    mysqli_close($connection);
+    }
 ?>
 </body>
 </html>
