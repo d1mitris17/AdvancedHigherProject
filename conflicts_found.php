@@ -36,7 +36,7 @@ if(isset($_SESSION['Conflicts'])){
         die("Failed to connect".mysqli_connect_errno());
     }
     $conflicts = $_SESSION['Conflicts'];
-    echo "<h1>Conflicts have been detected</h1>";
+    echo "<h1>Appointment conflicts already existing appointment</h1>";
     echo "<table>";
     echo '<tr>';
     echo '<th>AppointmentID</th>';
@@ -49,7 +49,7 @@ if(isset($_SESSION['Conflicts'])){
     for ($ii=0; $ii<count($conflicts[0]); $ii++){
         $temp1 = $conflicts[0][$ii];
         $all_conflicts = "SELECT * FROM Appointments WHERE AppointmentID=$temp1";
-        $update = "UPDATE Appointments SET Overlapping=1 WHERE AppointmentID= $temp1"; 
+        $update = "UPDATE Appointments SET Overlapping=1 WHERE AppointmentID=$temp1"; 
         $result = mysqli_query($connection, $all_conflicts);
         mysqli_query($connection, $update);
         $row = mysqli_fetch_array($result);
@@ -60,11 +60,14 @@ if(isset($_SESSION['Conflicts'])){
         echo '<td>' .$row['StartTime'].'</td>';
         echo '<td>' .$row['EndTime'].'</td>';
         echo '<td>' .$row['AppDate'].'</td>';
+        echo '<td><a href="edit_app.php?id='.$row['AppointmentID'].'">Edit</a></td>';
+        echo '<td><a href="delete_app?id='.$row['AppointmentID'].'.php">Delete</a></td>';
         echo '</tr>';
     }
     echo "<table>";
     mysqli_close($connection);
     }
 ?>
+
 </body>
 </html>

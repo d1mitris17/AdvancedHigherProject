@@ -53,6 +53,8 @@ if(mysqli_num_rows($result)>0){
         echo '<td>' .$row['StartTime'].'</td>';
         echo '<td>' .$row['EndTime'].'</td>';
         echo '<td>' .$row['AppDate'].'</td>';
+        echo '<td><a href="edit_app.php?id='.$row['AppointmentID'].'">Edit</a></td>';
+        echo '<td><a href="delete_app.php?id='.$row['AppointmentID'].'">Delete</a></td>';
         echo '</tr>';
     }
     echo "<table>";
