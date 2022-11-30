@@ -49,7 +49,7 @@ if(isset($_SESSION['Conflicts'])){
     for ($ii=0; $ii<count($conflicts[0]); $ii++){
         $temp1 = $conflicts[0][$ii];
         $all_conflicts = "SELECT * FROM Appointments WHERE AppointmentID=$temp1";
-        $update = "UPDATE Appointments SET Overlapping=1 WHERE AppointmentID=$temp1"; 
+        $update = "UPDATE appointments SET Overlapping=1 WHERE AppointmentID=$temp1"; 
         $result = mysqli_query($connection, $all_conflicts);
         mysqli_query($connection, $update);
         $row = mysqli_fetch_array($result);
@@ -61,7 +61,7 @@ if(isset($_SESSION['Conflicts'])){
         echo '<td>' .$row['EndTime'].'</td>';
         echo '<td>' .$row['AppDate'].'</td>';
         echo '<td><a href="edit_app.php?id='.$row['AppointmentID'].'">Edit</a></td>';
-        echo '<td><a href="delete_app?id='.$row['AppointmentID'].'.php">Delete</a></td>';
+        echo '<td><a href="delete_app.php?id='.$row['AppointmentID'].'">Delete</a></td>';
         echo '</tr>';
     }
     echo "<table>";
