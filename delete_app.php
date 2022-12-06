@@ -49,7 +49,7 @@ if (mysqli_query($connection, $getInf)){
     mysqli_query($connection, $delquery);
     // re-run feature to check for conflicts
     $all_appointments = "SELECT StartTime, EndTime, AppointmentID FROM appointments WHERE 
-    Staff_ID=$Staff AND AppDate=$Date ORDER BY StartTime ASC;";
+    Staff_ID=$Staff AND AppDate='$Date' ORDER BY StartTime ASC;";
     $result2 = mysqli_query($connection, $all_appointments);
     $Appointments = array();
     while($row = mysqli_fetch_array($result2)) {

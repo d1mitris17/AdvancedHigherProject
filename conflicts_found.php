@@ -60,7 +60,7 @@ if(isset($_SESSION['Conflicts'])){
         echo '<td>' .$row['StartTime'].'</td>';
         echo '<td>' .$row['EndTime'].'</td>';
         echo '<td>' .$row['AppDate'].'</td>';
-        echo '<td><a href="edit_app.php?id='.$row['AppointmentID'].'">Edit</a></td>';
+        echo '<td><a href="EditableAppointment.php?id='.$row['AppointmentID'].'">Edit</a></td>';
         echo '<td><a href="delete_app.php?id='.$row['AppointmentID'].'">Delete</a></td>';
         echo '</tr>';
     }
