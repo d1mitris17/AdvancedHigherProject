@@ -22,11 +22,11 @@ include 'loggedin.php';
     </ul>   
     
 <div class="details-form">
-        <form action="addaccount.php" method="POST">
+        <form action="NewStaffForm.php" method="POST">
             <input name="name" type="text" placeholder="Name" required>
             <input name="surname" type="text" placeholder="Surname" required>
             <br><br>
-            <input name="email" type="email" placeholder="Email" required>
+            <input name="username" type="text" placeholder="Username" required>
             <input name="dob" type="date" placeholder="Date Of Birth" max="2023-12-31" required>
             <br><br>
             <input type="password" name="password" required placeholder="Password">
@@ -37,9 +37,46 @@ include 'loggedin.php';
             </select>
             <br><br>
             <input type="text" required placeholder="Employee Type" name="type">
-            <input type="hidden" name="table" value="staff">
-            <input type="submit" name="Register" id="Register" value="Register">
+            <input type="submit" name="Register2" id="Register" value="Register">
         </form>
     </div>
+
+    <?php
+    $serverAddress = "localhost";
+    $serverUsername = "root";
+    $serverPassword = "";
+    $serverDB = "hospitalmanagementsystem";
+
+
+    $connection = mysqli_connect($serverAddress, $serverUsername, $serverPassword, $serverDB);
+
+    if(mysqli_connect_errno()){
+        die("Failed to connect".mysqli_connect_errno());
+    }
+    
+    if(isset($_POST['Register2'])) {
+        
+
+    $name = $_POST['name'];
+    $surname = $_POST['surname'];
+    $email = $_POST['email'];
+    $dob = $_POST['dob'];
+    $pword = $_POST['password'];
+    $sex = $_POST['sex'];
+    $type = $_POST['type'];
+
+
+    $sql_query = "INSERT INTO staff(Pword, Fname, Surname, EmailAddress, DateofBirth, Sex, StaffType) VALUES('$pword','$name','$surname','$email','$dob','$sex', '$type');";
+
+    if(mysqli_query($connection, $sql_query)){
+        header('Location: home.php');
+    } else{
+        header('Location: home.php');
+    }
+
+    mysqli_close($connection);
+
+    }
+    ?>
 </body>
 </html>

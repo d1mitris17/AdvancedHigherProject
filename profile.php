@@ -46,8 +46,8 @@ session_start();
         <label for="Surname">Surname: </label>
         <input type="text" name="Surname" value="'.$row['Surname'].'" disabled>
         <br><br>
-        <label for="EmailAddress">Email Address: </label>
-        <input type="email" name="EmailAddress" value="'.$row['EmailAddress'].'" disabled>
+        <label for="Username">Username: </label>
+        <input type="text" name="Username" value="'.$row['Username'].'" disabled>
         <br><br>
         <label for="Pword">Password: </label>
         <input type="password" name="Pword" value="'.$row['Pword'].'" disabled>

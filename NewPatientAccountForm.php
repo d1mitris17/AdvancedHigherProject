@@ -21,7 +21,7 @@ include 'loggedin.php';
         <li><a id="link" href="signout.php">Sign Out</a></li>
     </ul>  
 <div class="details-form">
-        <form action="addaccount.php" method="POST">
+        <form action="NewPatientAccountForm.php" method="POST">
             <input name="name" type="text" placeholder="Name" required>
             <input name="surname" type="text" placeholder="Surname" required>
             <br><br>
@@ -39,5 +39,42 @@ include 'loggedin.php';
             <input type="submit" name="Register" id="Register" value="Register">
         </form>
     </div>
+    <?php
+
+$serverAddress = "localhost";
+$serverUsername = "root";
+$serverPassword = "";
+$serverDB = "hospitalmanagementsystem";
+
+
+$connection = mysqli_connect($serverAddress, $serverUsername, $serverPassword, $serverDB);
+
+if(mysqli_connect_errno()){
+    die("Failed to connect".mysqli_connect_errno());
+}
+
+
+if(isset($_POST['Register'])) {
+    $name = $_POST['name'];
+    $surname = $_POST['surname'];
+    $email = $_POST['email'];
+    $dob = $_POST['dob'];
+    $pword = $_POST['password'];
+    $sex = $_POST['sex'];
+
+
+    $sql_query = "INSERT INTO patient(Pword, Fname, Surname, EmailAddress, DateofBirth, Sex) VALUES('$pword','$name','$surname','$email','$dob','$sex')";
+
+    if(mysqli_query($connection, $sql_query)){
+        mysqli_close($connection);
+        header('Location: home.php');
+    } else{
+        header('Location: home.php');
+    }
+
+    }
+
+
+?>
 </body>
 </html>

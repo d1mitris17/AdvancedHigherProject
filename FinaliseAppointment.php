@@ -56,9 +56,14 @@ if(isset($_POST['Book'])) {
             $Appointments[] = $row;
         }
         $conflicts = find_conflicts($Appointments);
-        $_SESSION['Conflicts'] = $conflicts;
         if(count($_SESSION['Conflicts'])>0){
-            header('Location: conflicts_found.php');
+            for ($ii=0; $ii<count($conflicts[0]); $ii++){
+                $temp1 = $conflicts[0][$ii];
+                $update = "UPDATE appointments SET Overlapping=1 WHERE AppointmentID=$temp1"; 
+                mysqli_query($connection, $update);
+            }
+            mysqli_close($connection);
+            header('Location: show_conflicts.php');
         } else{
             header('Location: home.php');
             // add message (success)

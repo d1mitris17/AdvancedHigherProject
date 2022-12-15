@@ -31,7 +31,7 @@ session_start();
 
     if(mysqli_num_rows($result)>0) {
         $row = mysqli_fetch_array($result);
-        echo '<form action="UpdateEntry.php" id="update-form" method="POST">
+        echo '<form action="EditableProfile.php" id="update-form" method="POST">
         <h1>Profile Details</h1>
         <label for="Fname">First Name: </label>
         <input type="text" name="Fname" value="'.$row['Fname'].'" required>
@@ -39,8 +39,8 @@ session_start();
         <label for="Surname">Surname: </label>
         <input type="text" name="Surname" value="'.$row['Surname'].'" required>
         <br><br>
-        <label for="EmailAddress">Email Address: </label>
-        <input type="email" name="EmailAddress" value="'.$row['EmailAddress'].'" required>
+        <label for="Username">Username: </label>
+        <input type="text" name="Username" value="'.$row['Username'].'" required>
         <br><br>
         <label for="Pword">Password: </label>
         <input type="text" name="Pword" value="'.$row['Pword'].'" required>
@@ -62,6 +62,27 @@ session_start();
         }
         
     ?>
+<?php
+
+    if(isset($_POST['update'])) {
+        $Fname = $_POST['Fname'];
+        $Surname = $_POST['Surname'];
+        $Username = $_POST['Username'];
+        $Pword = $_POST['Pword'];
+        $DateofBirth = $_POST['DateOfBirth'];
+        $Sex = $_POST['Sex'];
+        $pk = $_SESSION['pk'];
+        $sql_query = "UPDATE staff SET Fname='$Fname', Surname='$Surname', Username='$Username', Pword='$Pword', DateOfBirth='$DateofBirth', Sex='$Sex' WHERE Staff_ID = $pk";
+        if(mysqli_query($connection, $sql_query)){
+            $_SESSION['Name'] = $Fname;
+            header('Location: profile.php');
+        } else{
+            header('Location: index.php');
+        }
+    }
+
+
+?>
 
 
     </div>
