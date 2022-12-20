@@ -75,6 +75,10 @@ session_start();
         $sql_query = "UPDATE staff SET Fname='$Fname', Surname='$Surname', Username='$Username', Pword='$Pword', DateOfBirth='$DateofBirth', Sex='$Sex' WHERE Staff_ID = $pk";
         if(mysqli_query($connection, $sql_query)){
             $_SESSION['Name'] = $Fname;
+            echo '
+        <script>
+            window.alert("Details have been modified successfully")
+        </script>';
             header('Location: profile.php');
         } else{
             header('Location: index.php');

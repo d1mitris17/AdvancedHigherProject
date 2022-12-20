@@ -56,7 +56,7 @@ if(isset($_POST['Book'])) {
             $Appointments[] = $row;
         }
         $conflicts = find_conflicts($Appointments);
-        if(count($_SESSION['Conflicts'])>0){
+        if(count($conflicts[0])>0){
             for ($ii=0; $ii<count($conflicts[0]); $ii++){
                 $temp1 = $conflicts[0][$ii];
                 $update = "UPDATE appointments SET Overlapping=1 WHERE AppointmentID=$temp1"; 

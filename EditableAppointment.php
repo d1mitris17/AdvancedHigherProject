@@ -128,7 +128,7 @@ if (isset($_POST['update2'])){
          
     }
        // Display success message
-    header('Location: home.php');
+    header('Location: show_conflicts.php');
 }
 ?>
 

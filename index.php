@@ -1,6 +1,6 @@
 <?php
 session_start();
-include loggedin2.php;
+include 'loggedin2.php';
 ?>
 
 <!DOCTYPE html>
@@ -38,10 +38,10 @@ if(mysqli_connect_errno()) {
 
 
 if(isset($_POST['login'])) {
-    $email = $_POST['email'];
+    $username = $_POST['username'];
     $pword = $_POST['password'];
 
-    $sql_query = "SELECT * FROM staff WHERE EmailAddress='$email' AND Pword='$pword'";
+    $sql_query = "SELECT * FROM staff WHERE Username='$username' AND Pword='$pword'";
 
     $result = mysqli_query($connection, $sql_query);
 
@@ -50,13 +50,20 @@ if(isset($_POST['login'])) {
         $_SESSION['Name'] = $row['Fname'];
         $_SESSION['pk'] = $row['Staff_ID'];
         $_SESSION['loggedin'] = true;
+        echo '
+        <script>
+            window.alert("Log in successful")
+        </script>';
         header('Location: home.php');
     } else{
-        header('Location: index.php');
+        echo '
+        <script>
+            window.alert("Username and Password have not been found")
+        </script>';
     }
     }
-
-
 ?>
+
+
 </body>
 </html>

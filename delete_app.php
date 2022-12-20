@@ -64,20 +64,10 @@ if (mysqli_query($connection, $getInf)){
             $result = mysqli_query($connection, $all_conflicts);
             mysqli_query($connection, $update);
             $row = mysqli_fetch_array($result);
-            echo '<tr>';
-            echo '<td>' .$row['AppointmentID'].'</td>';
-            echo '<td>' .$row['PatientID'].'</td>';
-            echo '<td>' .$row['Staff_ID'].'</td>';
-            echo '<td>' .$row['StartTime'].'</td>';
-            echo '<td>' .$row['EndTime'].'</td>';
-            echo '<td>' .$row['AppDate'].'</td>';
-            echo '<td><a href="edit_app.php?id='.$row['AppointmentID'].'">Edit</a></td>';
-            echo '<td><a href="delete_app.php?id='.$row['AppointmentID'].'">Delete</a></td>';
-            echo '</tr>';
         }
         }
     // Display success message
-    // header('Location: home.php');
+    header('Location: show_conflicts.php');
 }else{
     // Display Failure, please retry message
     header('Location: home.php');

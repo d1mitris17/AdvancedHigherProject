@@ -59,14 +59,16 @@ include 'loggedin.php';
 
     $name = $_POST['name'];
     $surname = $_POST['surname'];
-    $email = $_POST['email'];
+    $username = $_POST['username'];
     $dob = $_POST['dob'];
     $pword = $_POST['password'];
     $sex = $_POST['sex'];
     $type = $_POST['type'];
 
+    // $hashed_pword = password_hash($pword, PASSWORD_DEFAULT);
+    $hashed_pword = $pword;
 
-    $sql_query = "INSERT INTO staff(Pword, Fname, Surname, EmailAddress, DateofBirth, Sex, StaffType) VALUES('$pword','$name','$surname','$email','$dob','$sex', '$type');";
+    $sql_query = "INSERT INTO staff(Pword, Fname, Surname, Username, DateofBirth, Sex, StaffType) VALUES('$hashed_pword','$name','$surname','$username','$dob','$sex', '$type');";
 
     if(mysqli_query($connection, $sql_query)){
         header('Location: home.php');
