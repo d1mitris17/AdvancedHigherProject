@@ -18,7 +18,6 @@ session_start();
         <li><a id="link" href="signout.php">Sign Out</a></li>
     </ul>
 
-    <div id="details">
     <?php
     $serverAddress = "localhost";
     $serverUsername = "root";
@@ -35,7 +34,7 @@ session_start();
         <button id="myButton" class="float-left submit-button" >Edit</button>
         <script type="text/javascript">
         document.getElementById("myButton").onclick = function () {
-        location.href = "EditableProfile.php";
+        location.href ="EditableProfile.php";
         };
         </script>
         <h1>Profile Details</h1>
@@ -66,8 +65,5 @@ session_start();
         }
         
     ?>
-
-
-    </div>
 </body>
 </html>

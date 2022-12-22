@@ -50,10 +50,6 @@ if(isset($_POST['login'])) {
         $_SESSION['Name'] = $row['Fname'];
         $_SESSION['pk'] = $row['Staff_ID'];
         $_SESSION['loggedin'] = true;
-        echo '
-        <script>
-            window.alert("Log in successful")
-        </script>';
         header('Location: home.php');
     } else{
         echo '

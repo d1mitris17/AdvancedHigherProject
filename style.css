@@ -238,3 +238,15 @@ img {
     cursor: pointer;
     opacity: 0.8;
 }
+
+
+#update-form #CancelBut {
+    float: left;
+    color: red;  
+}
+
+#update-form #CancelBut:hover{
+    cursor: pointer;
+    opacity: 0.8;
+}
+

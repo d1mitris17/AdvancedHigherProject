@@ -18,7 +18,6 @@ session_start();
         <li><a id="link" href="signout.php">Sign Out</a></li>
     </ul>
 
-    <div id="details">
     <?php
     $serverAddress = "localhost";
     $serverUsername = "root";
@@ -31,7 +30,8 @@ session_start();
 
     if(mysqli_num_rows($result)>0) {
         $row = mysqli_fetch_array($result);
-        echo '<form action="EditableProfile.php" id="update-form" method="POST">
+        echo '<div id="update-form">
+        <form action="EditableProfile.php" method="POST">
         <h1>Profile Details</h1>
         <label for="Fname">First Name: </label>
         <input type="text" name="Fname" value="'.$row['Fname'].'" required>
@@ -55,7 +55,15 @@ session_start();
         </select>
         <br><br>
         <input type="submit" id="myButton2" value="Update" name="update">
-        </form>';
+        </form>
+        <button id="CancelBut" class="float-left submit-button">Cancel</button>
+        <script type="text/javascript">
+        document.getElementById("CancelBut").onclick = function () {
+        location.href="profile.php";
+        };
+        </script>
+        </div>';
+        
         
         } else{
             header('Location: home.php');
@@ -87,8 +95,5 @@ session_start();
 
 
 ?>
-
-
-    </div>
 </body>
 </html>
