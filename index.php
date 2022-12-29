@@ -3,6 +3,7 @@ session_start();
 include 'loggedin2.php';
 ?>
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -41,20 +42,29 @@ if(isset($_POST['login'])) {
     $username = $_POST['username'];
     $pword = $_POST['password'];
 
-    $sql_query = "SELECT * FROM staff WHERE Username='$username' AND Pword='$pword'";
+    $sql_query = "SELECT * FROM staff WHERE Username='$username'";
 
     $result = mysqli_query($connection, $sql_query);
 
     if(mysqli_num_rows($result)>0){
         $row = mysqli_fetch_array($result);
-        $_SESSION['Name'] = $row['Fname'];
-        $_SESSION['pk'] = $row['Staff_ID'];
-        $_SESSION['loggedin'] = true;
-        header('Location: home.php');
+        $hash = $row['Pword'];
+        if(password_verify($pword, $hash)){
+            $_SESSION['Name'] = $row['Fname'];
+            $_SESSION['pk'] = $row['Staff_ID'];
+            $_SESSION['loggedin'] = true;
+            mysqli_close($connection);
+            header('Location: home.php');
+        } else {
+            echo '
+            <script>
+                window.alert("Username is invalid")
+            </script>';
+        }
     } else{
         echo '
         <script>
-            window.alert("Username and Password have not been found")
+            window.alert("Username is invalid")
         </script>';
     }
     }

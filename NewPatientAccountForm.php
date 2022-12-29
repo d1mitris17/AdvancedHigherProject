@@ -60,15 +60,17 @@ if(isset($_POST['Register'])) {
     $email = $_POST['email'];
     $dob = $_POST['dob'];
     $pword = $_POST['password'];
+    $hashed_pword = password_hash($pword, PASSWORD_DEFAULT);
     $sex = $_POST['sex'];
 
 
-    $sql_query = "INSERT INTO patient(Pword, Fname, Surname, EmailAddress, DateofBirth, Sex) VALUES('$pword','$name','$surname','$email','$dob','$sex')";
+    $sql_query = "INSERT INTO patient(Pword, Fname, Surname, EmailAddress, DateofBirth, Sex) VALUES('$hashed_pword','$name','$surname','$email','$dob','$sex')";
 
     if(mysqli_query($connection, $sql_query)){
         mysqli_close($connection);
         header('Location: home.php');
     } else{
+        mysqli_close($connection);
         header('Location: home.php');
     }
 

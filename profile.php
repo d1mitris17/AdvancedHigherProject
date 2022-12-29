@@ -38,7 +38,7 @@ session_start();
         };
         </script>
         <h1>Profile Details</h1>
-        <form action="UpdateEntry.php" method="POST">
+        <form action="EditableProfile.php" method="POST">
         <label for="Fname">First Name: </label>
         <input type="text" name="Fname" value="'.$row['Fname'].'" disabled>
         <br><br>

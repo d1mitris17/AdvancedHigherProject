@@ -77,11 +77,13 @@ session_start();
         $Surname = $_POST['Surname'];
         $Username = $_POST['Username'];
         $Pword = $_POST['Pword'];
+        $hashed_pword = password_hash($pword, PASSWORD_DEFAULT);
         $DateofBirth = $_POST['DateOfBirth'];
         $Sex = $_POST['Sex'];
         $pk = $_SESSION['pk'];
-        $sql_query = "UPDATE staff SET Fname='$Fname', Surname='$Surname', Username='$Username', Pword='$Pword', DateOfBirth='$DateofBirth', Sex='$Sex' WHERE Staff_ID = $pk";
+        $sql_query = "UPDATE staff SET Fname='$Fname', Surname='$Surname', Username='$Username', Pword='$hashed_pword', DateOfBirth='$DateofBirth', Sex='$Sex' WHERE Staff_ID = $pk";
         if(mysqli_query($connection, $sql_query)){
+            mysqli_close($connection);
             $_SESSION['Name'] = $Fname;
             echo '
         <script>
@@ -89,6 +91,7 @@ session_start();
         </script>';
             header('Location: profile.php');
         } else{
+            mysqli_close($connection);
             header('Location: index.php');
         }
     }

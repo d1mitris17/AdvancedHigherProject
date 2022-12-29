@@ -65,18 +65,18 @@ include 'loggedin.php';
     $sex = $_POST['sex'];
     $type = $_POST['type'];
 
-    // $hashed_pword = password_hash($pword, PASSWORD_DEFAULT);
-    $hashed_pword = $pword;
+    $hashed_pword = password_hash($pword, PASSWORD_DEFAULT);
 
     $sql_query = "INSERT INTO staff(Pword, Fname, Surname, Username, DateofBirth, Sex, StaffType) VALUES('$hashed_pword','$name','$surname','$username','$dob','$sex', '$type');";
 
     if(mysqli_query($connection, $sql_query)){
+        mysqli_close($connection);
         header('Location: home.php');
     } else{
+        mysqli_close($connection);
         header('Location: home.php');
     }
 
-    mysqli_close($connection);
 
     }
     ?>
