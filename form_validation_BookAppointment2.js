@@ -1,0 +1,7 @@
+const doctor = document.getElementById('doctor')
+const start_time = document.getElementById('StartTime')
+const end_time = document.getElementById('EndTime')
+const date = document.getElementById('date')
+const patient_id = document.getElementById('patient_id')
+const form = document.getElementById('form')
+const errorElement = document.getElementById('error')
