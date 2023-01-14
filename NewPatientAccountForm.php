@@ -35,7 +35,6 @@ include 'loggedin.php';
                 <option value="Female">Female</option>
             </select>
             <br><br>
-            <input type="hidden" name="table" value="patient">
             <input type="submit" name="Register" id="Register" value="Register">
         </form>
     </div>
