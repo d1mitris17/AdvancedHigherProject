@@ -3,62 +3,34 @@ session_start();
 include 'loggedin2.php';
 ?>
 
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Log in - Exemplar Healthcare</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <div class="details-form">
-        <img src="images/logo.png" alt="logo">
-        <form action="index.php" method="POST">
-            <input name="username" type="username" placeholder="Username" required>
-            <br><br>
-            <input type="password" name="password" required placeholder="Password">
-            <br><br>
-            <input type="submit" name="login" id="login" value="Log in">
-            <br><br>
-        </form>
-        <a href="ResetPassword.php">Forgoten yout Password?</a>
-    </div>
-    <?php
-$serverAddress = "localhost";
-$serverUsername = "root";
-$serverPassword = "";
-$serverDB = "hospitalmanagementsystem";
-
-
-$connection = mysqli_connect($serverAddress, $serverUsername, $serverPassword, $serverDB);
-
-
-if(mysqli_connect_errno()) {
-    die("Failed to connect".mysqli_connect_errno());
-}
-
-
+<?php
 if(isset($_POST['login'])) {
+    include 'connect_to_db.php';
+
+    $stmt = $conn->prepare("SELECT Staff_ID, Fname, Pword FROM staff WHERE Username=?");
+    $stmt->bind_param("s", $username);
+
     $username = $_POST['username'];
-    $pword = $_POST['password'];
+    $password = $_POST['password'];
 
-    $sql_query = "SELECT * FROM staff WHERE Username='$username'";
+    $stmt->execute();
+    $stmt->store_result();
 
-    $result = mysqli_query($connection, $sql_query);
-
-    if(mysqli_num_rows($result)>0){
-        $row = mysqli_fetch_array($result);
-        $hash = $row['Pword'];
-        if(password_verify($pword, $hash)){
-            $_SESSION['Name'] = $row['Fname'];
-            $_SESSION['pk'] = $row['Staff_ID'];
+    $stmt->bind_result($Staff_ID, $Fname, $Pword);
+    if($stmt->num_rows == 1){
+        $stmt->fetch();
+        if(password_verify($password, $Pword)){
+            $_SESSION['Name'] = $Fname;
+            $_SESSION['pk'] = $Staff_ID;
             $_SESSION['loggedin'] = true;
             mysqli_close($connection);
+            echo 'success';
             header('Location: home.php');
         } else {
+            session_destroy();
             echo '
             <script>
-                window.alert("Username is invalid")
+                window.alert("Password is invalid")
             </script>';
         }
     } else{
@@ -69,6 +41,25 @@ if(isset($_POST['login'])) {
     }
     }
 ?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Log in - Exemplar Healthcare</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="details-form">
+        <img src="images/logo.png" alt="logo">
+        <form action="" method="POST">
+            <input name="username" type="text" placeholder="Username">
+            <br><br>
+            <input type="password" name="password" placeholder="Password">
+            <br><br>
+            <input type="submit" name="login" id="login" value="Log in">
+            <br><br>
+        </form>
+    </div>
 
 
 </body>
