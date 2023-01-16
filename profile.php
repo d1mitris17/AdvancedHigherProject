@@ -48,9 +48,6 @@ session_start();
         <label for="Username">Username: </label>
         <input type="text" name="Username" value="'.$row['Username'].'" disabled>
         <br><br>
-        <label for="Pword">Password: </label>
-        <input type="password" name="Pword" value="'.$row['Pword'].'" disabled>
-        <br><br>
         <label for="DateOfBirth">Date of Birth: </label>
         <input type="date" name="DateOfBirth" value="'.$row['DateofBirth'].'" disabled>
         <br><br>

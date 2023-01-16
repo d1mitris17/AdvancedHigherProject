@@ -3,13 +3,13 @@ session_start();
 include 'loggedin2.php';
 ?>
 
+<!DOCTYPE html>
+
 <?php
 if(isset($_POST['login'])) {
     include 'connect_to_db.php';
-
     $stmt = $conn->prepare("SELECT Staff_ID, Fname, Pword FROM staff WHERE Username=?");
     $stmt->bind_param("s", $username);
-
     $username = $_POST['username'];
     $password = $_POST['password'];
 
@@ -23,8 +23,7 @@ if(isset($_POST['login'])) {
             $_SESSION['Name'] = $Fname;
             $_SESSION['pk'] = $Staff_ID;
             $_SESSION['loggedin'] = true;
-            mysqli_close($connection);
-            echo 'success';
+            mysqli_close($conn);
             header('Location: home.php');
         } else {
             session_destroy();
@@ -42,7 +41,6 @@ if(isset($_POST['login'])) {
     }
 ?>
 
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <title>Log in - Exemplar Healthcare</title>
@@ -51,7 +49,7 @@ if(isset($_POST['login'])) {
 <body>
     <div class="details-form">
         <img src="images/logo.png" alt="logo">
-        <form action="" method="POST">
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="POST">
             <input name="username" type="text" placeholder="Username">
             <br><br>
             <input type="password" name="password" placeholder="Password">

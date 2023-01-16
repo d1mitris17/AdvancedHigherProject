@@ -42,9 +42,6 @@ session_start();
         <label for="Username">Username: </label>
         <input type="text" name="Username" value="'.$row['Username'].'" required>
         <br><br>
-        <label for="Pword">Password: </label>
-        <input type="text" name="Pword" value="'.$row['Pword'].'" required>
-        <br><br>
         <label for="DateOfBirth">Date of Birth: </label>
         <input type="date" name="DateOfBirth" value="'.$row['DateofBirth'].'" required>
         <br><br>

@@ -21,46 +21,37 @@ include 'loggedin.php';
     </ul>  
     <h1>Choose Patient: </h1>
     <?php
-    $serverAddress = "localhost";
-    $serverUsername = "root";
-    $serverPassword = "";
-    $serverDB = "hospitalmanagementsystem";
-    
-    
-    $connection = mysqli_connect($serverAddress, $serverUsername, $serverPassword, $serverDB);
-    
-    
-    if(mysqli_connect_errno()) {
-        die("Failed to connect".mysqli_connect_errno());
-    }
 
-    $sql_query = "SELECT PatientID, Fname, Surname, EmailAddress, DateofBirth, Sex FROM patient";
+    include 'connect_to_db.php';
 
-    $result = mysqli_query($connection, $sql_query);
+    $stmt = $conn->prepare("SELECT PatientID, Fname, Surname, EmailAddress, DateofBirth, Sex FROM patient");
+    $stmt->execute();
+    $result = $stmt->get_result();
     
-    if(mysqli_num_rows($result)>0){
+    if($result->num_rows > 0){
         echo("<table>");
-        $first_row = true;
-        while ($row = mysqli_fetch_assoc($result)) {
-            if ($first_row) {
-                $first_row = false;
-                echo '<tr>';
-                foreach($row as $key => $field) {
-                    echo '<th>' . htmlspecialchars($key) . '</th>';
-                }
-                echo '</tr>';
-            }
-            echo '<tr>';
-            foreach($row as $key => $field) {
-                echo '<td>' . htmlspecialchars($field) . '</td>';
-            }
-            echo "<td><a href='BookAppointment2.php?id=".$row['PatientID']."'>Select Patient</a></td>";
-            echo '</tr>';
-            }
-        echo("</table>");
-        
-
+        echo("<tr>");
+        echo ("<th>Patient ID</th>");
+        echo ("<th>Name</th>");
+        echo ("<th>Surname</th>");
+        echo ("<th>Email Address</th>");
+        echo ("<th>Date of Birth</th>");
+        echo ("<th>Sex</th>");
+        echo ("<th>1</th>");
+        echo("</tr>");
+        while($row = $result->fetch_assoc()){
+            echo "<tr>";
+            echo "<td>".$row['PatientID']."</td>";
+            echo "<td>".$row['Fname']."</td>";
+            echo "<td>".$row['Surname']."</td>";
+            echo "<td>".$row['EmailAddress']."</td>";
+            echo "<td>".$row['DateofBirth']."</td>";
+            echo "<td>".$row['Sex']."</td>";
+            echo "<td><a href='http://localhost/projects/AdvancedHigherProject/BookAppointment2.php?id=".$row['PatientID']."'>Select</a></td>";
+            echo "</tr>";
+        }
     }
     ?>
+
 </body>
 </html>
