@@ -37,7 +37,6 @@ include 'loggedin.php';
         echo ("<th>Email Address</th>");
         echo ("<th>Date of Birth</th>");
         echo ("<th>Sex</th>");
-        echo ("<th>1</th>");
         echo("</tr>");
         while($row = $result->fetch_assoc()){
             echo "<tr>";
@@ -51,6 +50,7 @@ include 'loggedin.php';
             echo "</tr>";
         }
     }
+    $conn->close();
     ?>
 
 </body>

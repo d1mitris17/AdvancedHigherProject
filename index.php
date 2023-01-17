@@ -23,7 +23,7 @@ if(isset($_POST['login'])) {
             $_SESSION['Name'] = $Fname;
             $_SESSION['pk'] = $Staff_ID;
             $_SESSION['loggedin'] = true;
-            mysqli_close($conn);
+            $conn->close();
             header('Location: home.php');
         } else {
             session_destroy();
@@ -33,11 +33,13 @@ if(isset($_POST['login'])) {
             </script>';
         }
     } else{
+        session_destroy();
         echo '
         <script>
             window.alert("Username is invalid")
         </script>';
     }
+    $conn->close();
     }
 ?>
 

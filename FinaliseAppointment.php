@@ -24,18 +24,7 @@ function find_conflicts($Appointments){
     }
     return $conflicts;
 }
-
-$serverAddress = "localhost";
-$serverUsername = "root";
-$serverPassword = "";
-$serverDB = "hospitalmanagementsystem";
-
-
-$connection = mysqli_connect($serverAddress, $serverUsername, $serverPassword, $serverDB);
-
-if(mysqli_connect_errno()){
-    die("Failed to connect".mysqli_connect_errno());
-}
+include 'connect_to_db.php';
 
 
 if(isset($_POST['Book'])) {
@@ -45,39 +34,51 @@ if(isset($_POST['Book'])) {
     $EndTime = $_POST['EndTime'];
     $Date = $_POST['date'];
 
+    $stmt = $conn->prepare("INSERT INTO appointments(Staff_ID, PatientID, StartTime, EndTime, AppDate) VALUES(?, ?, ?, ?, ?)");
+    $stmt->bind_param('iisss', $DoctorID, $PatientID, $StartTime, $EndTime, $Date);
+    $stmt->execute();
 
-    $sql_query = "INSERT INTO appointments(Staff_ID, PatientID, StartTime, EndTime, AppDate) VALUES('$DoctorID','$PatientID','$StartTime','$EndTime','$Date')";
+    if($stmt->affected_rows > 0){
 
-    if(mysqli_query($connection, $sql_query)){
-        $all_appointments = "SELECT StartTime, EndTime, AppointmentID FROM appointments WHERE Staff_ID=$DoctorID AND AppDate='$Date' ORDER BY StartTime ASC";
-        $result = mysqli_query($connection, $all_appointments);
+        $all_appointments = "SELECT StartTime, EndTime, AppointmentID FROM appointments WHERE Staff_ID=? AND AppDate=? ORDER BY StartTime ASC";
+        $stmt2 = $conn->prepare($all_appointments);
+        $stmt2->bind_param('is', $DoctorID, $Date);
+        $stmt2->execute();
+
+        $result = $stmt2->get_result();
         $Appointments = array();
-        while($row = mysqli_fetch_array($result)) {
+        while($row = $result->fetch_array()) {
             $Appointments[] = $row;
         }
         $conflicts = find_conflicts($Appointments);
-        if(count($conflicts[0])>0){
+        echo '<pre>'; print_r($conflicts); echo '</pre>';
+        if(!empty($conflicts[0])){
+            echo 'test2';
             for ($ii=0; $ii<count($conflicts[0]); $ii++){
                 $temp1 = $conflicts[0][$ii];
                 $update = "UPDATE appointments SET Overlapping=1 WHERE AppointmentID=$temp1"; 
-                mysqli_query($connection, $update);
+                mysqli_query($conn, $update);
             }
-            mysqli_close($connection);
+            $conn->close();
             header('Location: show_conflicts.php');
-        } else{
+            exit();
+        }else{
+            echo 'test1';
+            $conn->close();
             header('Location: home.php');
+            exit();
             // add message (success)
         }
         
 
     } else{
         // find way to add failled message
+        $conn->close();
         header('Location: home.php');
+        exit();
     }
 
-    mysqli_close($connection);
-
-    }
+}
 
 
-?>
+    ?>
