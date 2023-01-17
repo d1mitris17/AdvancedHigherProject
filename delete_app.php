@@ -20,55 +20,56 @@ function find_conflicts($Appointments){
     return $conflicts;
 }
 
-$serverAddress = "localhost";
-$serverUsername = "root";
-$serverPassword = "";
-$serverDB = "hospitalmanagementsystem";
-
-
-$connection = mysqli_connect($serverAddress, $serverUsername, $serverPassword, $serverDB);
-
-if(mysqli_connect_errno()){
-    die("Failed to connect".mysqli_connect_errno());
-}
+include 'connect_to_db.php';
 
 $pk = $_GET['id'];
 
-$getInf = "SELECT AppDate, Staff_ID FROM appointments WHERE AppointmentID=$pk;";
+$getInf = "SELECT AppDate, Staff_ID FROM appointments WHERE AppointmentID=?;";
+$stmt = $conn->prepare($getInf);
+$stmt->bind_param("i", $pk);
+$stmt->execute();
 
-if (mysqli_query($connection, $getInf)){
-    $result = mysqli_query($connection, $getInf);
-    $row = mysqli_fetch_array($result);
+$stmt->store_result();
+$stmt->bind_result($Date, $Staff);
+
+if ($stmt->num_rows() = 1){
     // set all appointments with the date and doctor to not conflict
-        $Staff = $row['Staff_ID'];
-        $Date = $row['AppDate'];
-        $update = "UPDATE appointments SET Overlapping=0 WHERE Staff_ID=$Staff AND AppDate='$Date';";
-        mysqli_query($connection, $update);
-    // drop appointment
-    $delquery = "DELETE FROM appointments WHERE AppointmentID=$pk;";
-    mysqli_query($connection, $delquery);
-    // re-run feature to check for conflicts
-    $all_appointments = "SELECT StartTime, EndTime, AppointmentID FROM appointments WHERE 
-    Staff_ID=$Staff AND AppDate='$Date' ORDER BY StartTime ASC;";
-    $result2 = mysqli_query($connection, $all_appointments);
-    $Appointments = array();
-    while($row = mysqli_fetch_array($result2)) {
+        $update = "UPDATE appointments SET Overlapping=0 WHERE Staff_ID=? AND AppDate=?;";
+        $stmt2 = $conn->prepare($update);
+        $stmt2->bind_param("is", $Staff, $Date);
+        $stmt2->execute();
+        // drop appointment
+        $delquery = "DELETE FROM appointments WHERE AppointmentID=?;";
+        $stmt3 = $conn->prepare($delquery);
+        $stmt3->bind_param("i", $pk);
+        $stmt3->execute();
+        // re-run feature to check for conflicts
+        $all_appointments = "SELECT StartTime, EndTime, AppointmentID FROM appointments WHERE Staff_ID=? AND AppDate=? ORDER BY StartTime ASC;";
+        $stmt4 = $conn->prepare($all_appointments);
+        $stmt4->bind_param("is", $Staff, $Date);
+        $stmt4->execute();
+        $result2 = $stmt4->get_result();
+        $Appointments = array();
+        while($row = $result2->fetch_array()) {
             $Appointments[] = $row;
-    }
+        }
     if(count($Appointments)>1){
         $conflicts = find_conflicts($Appointments);
         for ($ii=0; $ii<count($conflicts[0]); $ii++){
             $temp1 = $conflicts[0][$ii];
-            $all_conflicts = "SELECT * FROM Appointments WHERE AppointmentID=$temp1";
-            $update = "UPDATE appointments SET Overlapping=1 WHERE AppointmentID=$temp1"; 
-            $result = mysqli_query($connection, $all_conflicts);
-            mysqli_query($connection, $update);
-            $row = mysqli_fetch_array($result);
+            $update = "UPDATE appointments SET Overlapping=1 WHERE AppointmentID=?";
+            $stmt5 = $conn->prepare($update);
+            $stmt5->bind_param("i", $temp1);
+            $stmt5->execute();
         }
         }
     // Display success message
+    $conn->close();
     header('Location: show_conflicts.php');
+    exit();
 }else{
     // Display Failure, please retry message
-    header('Location: home.php');
+    $conn->close();
+    header('Location: show_conflicts.php');
+    exit();
 }

@@ -1,5 +1,6 @@
 <?php
 session_start();
+include 'loggedin.php';
 ?>
 
 <!DOCTYPE html>
@@ -19,31 +20,34 @@ session_start();
     </ul>
 
     <?php
-    $serverAddress = "localhost";
-    $serverUsername = "root";
-    $serverPassword = "";
-    $serverDB = "hospitalmanagementsystem";
-    $pk = $_SESSION['pk'];
-    $connection = mysqli_connect($serverAddress, $serverUsername, $serverPassword, $serverDB);
-    $sql_query = "SELECT * FROM staff WHERE Staff_ID='$pk'";
-    $result = mysqli_query($connection, $sql_query);
+    include 'connect_to_db.php';
 
-    if(mysqli_num_rows($result)>0) {
-        $row = mysqli_fetch_array($result);
+    $pk = $_SESSION['pk'];
+
+    $sql_query = "SELECT Fname, Surname, Username, DateofBirth, Sex FROM staff WHERE Staff_ID=?";
+    $stmt = $conn->prepare($sql_query);
+    $stmt->bind_param("i", $pk);
+
+    $stmt->execute();
+    $stmt->store_result();
+
+    $stmt->bind_result($Fname, $Surname, $Username, $DateofBirth, $Sex);
+    if($stmt->num_rows = 1) {
+        $stmt->fetch();
         echo '<div id="update-form">
         <form action="EditableProfile.php" method="POST">
         <h1>Profile Details</h1>
         <label for="Fname">First Name: </label>
-        <input type="text" name="Fname" value="'.$row['Fname'].'" required>
+        <input type="text" name="Fname" value="'.$Fname.'" required>
         <br><br>
         <label for="Surname">Surname: </label>
-        <input type="text" name="Surname" value="'.$row['Surname'].'" required>
+        <input type="text" name="Surname" value="'.$Surname.'" required>
         <br><br>
         <label for="Username">Username: </label>
-        <input type="text" name="Username" value="'.$row['Username'].'" required>
+        <input type="text" name="Username" value="'.$Username.'" required>
         <br><br>
         <label for="DateOfBirth">Date of Birth: </label>
-        <input type="date" name="DateOfBirth" value="'.$row['DateofBirth'].'" required>
+        <input type="date" name="DateOfBirth" value="'.$DateofBirth.'" required>
         <br><br>
         <label for="Sex">Sex: </label>
         <select name="Sex" required>
@@ -64,10 +68,10 @@ session_start();
         
         } else{
             header('Location: home.php');
+            exit();
         }
         
-    ?>
-<?php
+ 
 
     if(isset($_POST['update'])) {
         $Fname = $_POST['Fname'];
@@ -78,18 +82,25 @@ session_start();
         $DateofBirth = $_POST['DateOfBirth'];
         $Sex = $_POST['Sex'];
         $pk = $_SESSION['pk'];
-        $sql_query = "UPDATE staff SET Fname='$Fname', Surname='$Surname', Username='$Username', Pword='$hashed_pword', DateOfBirth='$DateofBirth', Sex='$Sex' WHERE Staff_ID = $pk";
-        if(mysqli_query($connection, $sql_query)){
-            mysqli_close($connection);
+
+        $sql_query2 = "UPDATE staff SET Fname=?, Surname=?, Username=?, Pword=?, DateOfBirth=?, Sex=? WHERE Staff_ID=?";
+        $stmt2 = $conn->prepare($sql_query2);
+        $stmt2->bind_param("ssssssi", $Fname, $Surname, $Username, $hashed_pword, $DateofBirth, $Sex, $pk);
+        $stmt2->execute();
+
+        if($stmt2->affected_rows = 1){
+            $conn->close();
             $_SESSION['Name'] = $Fname;
             echo '
         <script>
             window.alert("Details have been modified successfully")
         </script>';
             header('Location: profile.php');
+            exit();
         } else{
-            mysqli_close($connection);
+            $conn->close();
             header('Location: index.php');
+            exit();
         }
     }
 

@@ -19,7 +19,7 @@ include 'loggedin.php';
         <li><a id="link" href="NewPatientAccountForm.php">Add Patient</a></li>
         <li><a id="link" href="NewStaffForm.php">Add Hospital Staff</a></li>
         <li><a id="link" href="signout.php">Sign Out</a></li>
-    </ul>  
+    </ul>
 <div class="details-form">
         <form action="NewPatientAccountForm.php" method="POST">
             <input name="name" type="text" placeholder="Name" required>
@@ -40,17 +40,7 @@ include 'loggedin.php';
     </div>
     <?php
 
-$serverAddress = "localhost";
-$serverUsername = "root";
-$serverPassword = "";
-$serverDB = "hospitalmanagementsystem";
-
-
-$connection = mysqli_connect($serverAddress, $serverUsername, $serverPassword, $serverDB);
-
-if(mysqli_connect_errno()){
-    die("Failed to connect".mysqli_connect_errno());
-}
+    include 'connect_to_db.php';
 
 
 if(isset($_POST['Register'])) {
@@ -63,14 +53,19 @@ if(isset($_POST['Register'])) {
     $sex = $_POST['sex'];
 
 
-    $sql_query = "INSERT INTO patient(Pword, Fname, Surname, EmailAddress, DateofBirth, Sex) VALUES('$hashed_pword','$name','$surname','$email','$dob','$sex')";
+    $sql_query = "INSERT INTO patient(Pword, Fname, Surname, EmailAddress, DateofBirth, Sex) VALUES(?, ?, ?, ?, ?, ?)";
+        $stmt = $conn->prepare($sql_query);
+        $stmt->bind_param("ssssss", $hashed_pword, $name, $surname, $email, $dob, $sex);
+        $stmt->execute();
 
-    if(mysqli_query($connection, $sql_query)){
-        mysqli_close($connection);
+    if($stmt->affected_rows > 0){
+        $conn->close();
         header('Location: home.php');
+        exit();
     } else{
-        mysqli_close($connection);
-        header('Location: home.php');
+        $conn->close();
+        // Operation failed message
+        exit();
     }
 
     }

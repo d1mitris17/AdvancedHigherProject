@@ -51,19 +51,18 @@ if(isset($_POST['Book'])) {
             $Appointments[] = $row;
         }
         $conflicts = find_conflicts($Appointments);
-        echo '<pre>'; print_r($conflicts); echo '</pre>';
         if(!empty($conflicts[0])){
-            echo 'test2';
             for ($ii=0; $ii<count($conflicts[0]); $ii++){
                 $temp1 = $conflicts[0][$ii];
-                $update = "UPDATE appointments SET Overlapping=1 WHERE AppointmentID=$temp1"; 
-                mysqli_query($conn, $update);
+                $update = "UPDATE appointments SET Overlapping=1 WHERE AppointmentID=?";
+                $stmt3 = $conn->prepare($update);
+                $stmt3->bind_param("i", $temp1);
+                $stmt3->execute();
             }
             $conn->close();
             header('Location: show_conflicts.php');
             exit();
         }else{
-            echo 'test1';
             $conn->close();
             header('Location: home.php');
             exit();

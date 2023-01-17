@@ -42,41 +42,35 @@ include 'loggedin.php';
     </div>
 
     <?php
-    $serverAddress = "localhost";
-    $serverUsername = "root";
-    $serverPassword = "";
-    $serverDB = "hospitalmanagementsystem";
-
-
-    $connection = mysqli_connect($serverAddress, $serverUsername, $serverPassword, $serverDB);
-
-    if(mysqli_connect_errno()){
-        die("Failed to connect".mysqli_connect_errno());
-    }
+    include 'connect_to_db.php';
     
     if(isset($_POST['Register2'])) {
         
 
-    $name = $_POST['name'];
-    $surname = $_POST['surname'];
-    $username = $_POST['username'];
-    $dob = $_POST['dob'];
-    $pword = $_POST['password'];
-    $sex = $_POST['sex'];
-    $type = $_POST['type'];
+        $name = $_POST['name'];
+        $surname = $_POST['surname'];
+        $username = $_POST['username'];
+        $dob = $_POST['dob'];
+        $pword = $_POST['password'];
+        $sex = $_POST['sex'];
+        $type = $_POST['type'];
+        $hashed_pword = password_hash($pword, PASSWORD_DEFAULT);
 
-    $hashed_pword = password_hash($pword, PASSWORD_DEFAULT);
+        $sql_query = "INSERT INTO staff(Pword, Fname, Surname, Username, DateofBirth, Sex, StaffType) VALUES();";
 
-    $sql_query = "INSERT INTO staff(Pword, Fname, Surname, Username, DateofBirth, Sex, StaffType) VALUES('$hashed_pword','$name','$surname','$username','$dob','$sex', '$type');";
+        $stmt = $conn->prepare($sql_query);
+        $stmt->bind_param("sssssss", $hashed_pword, $name, $surname, $username, $dob, $sex, $type);
+        $stmt->execute();
 
-    if(mysqli_query($connection, $sql_query)){
-        mysqli_close($connection);
-        header('Location: home.php');
-    } else{
-        mysqli_close($connection);
-        header('Location: home.php');
-    }
-
+        if($stmt->affected_rows > 0){
+            $conn->close();
+            header('Location: home.php');
+            exit();
+        } else{
+            $conn->close();
+            header('Location: NewStaffForm.php');
+            exit();
+        }
 
     }
     ?>

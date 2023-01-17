@@ -25,6 +25,7 @@ if(isset($_POST['login'])) {
             $_SESSION['loggedin'] = true;
             $conn->close();
             header('Location: home.php');
+            exit();
         } else {
             session_destroy();
             echo '

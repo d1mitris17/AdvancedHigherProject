@@ -1,5 +1,6 @@
 <?php
 session_start();
+include 'loggedin.php';
 ?>
 
 <!DOCTYPE html>
@@ -19,17 +20,20 @@ session_start();
     </ul>
 
     <?php
-    $serverAddress = "localhost";
-    $serverUsername = "root";
-    $serverPassword = "";
-    $serverDB = "hospitalmanagementsystem";
-    $pk = $_SESSION['pk'];
-    $connection = mysqli_connect($serverAddress, $serverUsername, $serverPassword, $serverDB);
-    $sql_query = "SELECT * FROM staff WHERE Staff_ID='$pk'";
-    $result = mysqli_query($connection, $sql_query);
+    include 'connect_to_db.php';
 
-    if(mysqli_num_rows($result)>0) {
-        $row = mysqli_fetch_array($result);
+    $pk = $_SESSION['pk'];
+
+    $sql_query = "SELECT Fname, Surname, Username, DateofBirth, Sex FROM staff WHERE Staff_ID=?";
+    $stmt = $conn->prepare($sql_query);
+    $stmt->bind_param("i", $pk);
+
+    $stmt->execute();
+    $stmt->store_result();
+
+    $stmt->bind_result($Fname, $Surname, $Username, $DateofBirth, $Sex);
+    if($stmt->num_rows = 1) {
+        $stmt->fetch();
         echo '<div id="update-form">
         <button id="myButton" class="float-left submit-button" >Edit</button>
         <script type="text/javascript">
@@ -40,25 +44,27 @@ session_start();
         <h1>Profile Details</h1>
         <form action="EditableProfile.php" method="POST">
         <label for="Fname">First Name: </label>
-        <input type="text" name="Fname" value="'.$row['Fname'].'" disabled>
+        <input type="text" name="Fname" value="'.$Fname.'" disabled>
         <br><br>
         <label for="Surname">Surname: </label>
-        <input type="text" name="Surname" value="'.$row['Surname'].'" disabled>
+        <input type="text" name="Surname" value="'.$Surname.'" disabled>
         <br><br>
         <label for="Username">Username: </label>
-        <input type="text" name="Username" value="'.$row['Username'].'" disabled>
+        <input type="text" name="Username" value="'.$Username.'" disabled>
         <br><br>
         <label for="DateOfBirth">Date of Birth: </label>
-        <input type="date" name="DateOfBirth" value="'.$row['DateofBirth'].'" disabled>
+        <input type="date" name="DateOfBirth" value="'.$DateofBirth.'" disabled>
         <br><br>
         <label for="Sex">Sex: </label>
         <select name="Sex" disabled>
-            <option value=" ">'.$row['Sex'].'</option>
-        </select>
-    </form>
-    </div>';
+            <option value=" ">'.$Sex.'</option>
+       </select>
+        </form>
+        </div>';
         } else{
-            header('Location: home.php');
+            // error
+            header('Location: signout.php');
+            exit();
         }
         
     ?>

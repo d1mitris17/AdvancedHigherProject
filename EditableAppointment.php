@@ -1,5 +1,6 @@
 <?php
 session_start();
+include 'loggedin.php';
 ?>
 
 <!DOCTYPE html>
@@ -20,37 +21,41 @@ session_start();
 
     <div id="details">
     <?php
-    $serverAddress = "localhost";
-    $serverUsername = "root";
-    $serverPassword = "";
-    $serverDB = "hospitalmanagementsystem";
+    include 'connect_to_db.php';
     $Appointment_pk = $_GET['id'];
-    $connection = mysqli_connect($serverAddress, $serverUsername, $serverPassword, $serverDB);
-    $sql_query = "SELECT * FROM appointments WHERE AppointmentID='$Appointment_pk'";
-    $result = mysqli_query($connection, $sql_query);
+    
+    $sql_query = "SELECT AppDate, StartTime, EndTime, AppointmentID, Staff_ID FROM appointments WHERE AppointmentID=?";
+    $stmt = $conn->prepare($sql_query);
+    $stmt->bind_param("i", $pk);
 
-    if(mysqli_num_rows($result)>0) {
-        $row = mysqli_fetch_array($result);
+    $stmt->execute();
+    $stmt->store_result();
+
+    $stmt->bind_result($AppDate, $StartTime, $EndTime, $AppointmentID, $Staff_ID);
+
+    if($stmt->num_rows = 1) {
+        $stmt->fetch();
         echo '<form action="EditableAppointment.php" id="update-form" method="POST">
         <h1>Appointment Details</h1>
-        <input type="hidden" name="OldDate" value="'.$row['AppDate'].'">
+        <input type="hidden" name="OldDate" value="'.$AppDate.'">
         <label for="AppDate">Appointment Date: </label>
-        <input type="date" name="AppDate" value="'.$row['AppDate'].'" required>
+        <input type="date" name="AppDate" value="'.$AppDate.'" required>
         <br><br>
         <label for="StartTime">Start Time: </label>
-        <input type="time" name="StartTime" value="'.$row['StartTime'].'" required>
+        <input type="time" name="StartTime" value="'.$StartTime.'" required>
         <br><br>
         <label for="EndTime">End Time: </label>
-        <input type="time" name="EndTime" value="'.$row['EndTime'].'" required>
+        <input type="time" name="EndTime" value="'.$EndTime.'" required>
         <br><br>
-        <input type="hidden" name="AppointmentID" value="'.$row['AppointmentID'].'">
+        <input type="hidden" name="AppointmentID" value="'.$AppointmentID.'">
         <br><br>
-        <input type="hidden" name="Staff_ID" value="'.$row['Staff_ID'].'">
+        <input type="hidden" name="Staff_ID" value="'.$Staff_ID.'">
         <br><br>
         <input type="submit" id="myButton2" value="Update" name="update2">
         </form>';
         } else{
             header('Location: home.php');
+            exit();
         }
         
     
@@ -85,50 +90,63 @@ if (isset($_POST['update2'])){
     $StartTime = $_POST['StartTime'];
     $EndTime = $_POST['EndTime'];
     // set all appointments with the PastDate and doctor to not conflicting 
-    $update = "UPDATE appointments SET Overlapping=0 WHERE Staff_ID=$Staff AND AppDate='$OldDate';";
-    mysqli_query($connection, $update);
+    $update = "UPDATE appointments SET Overlapping=0 WHERE Staff_ID=? AND AppDate=?;";
+    $stmt2 = $conn->prepare($update);
+    $stmt2->bind_param("is", $Staff, $Date);
+    $stmt2->execute();
     // update appointment
-    $updquery = "UPDATE appointments SET AppDate='$NewAppDate', StartTime='$StartTime', EndTime='$EndTime' WHERE AppointmentID=$pk;";
-    mysqli_query($connection, $updquery);
+    $updquery = "UPDATE appointments SET AppDate=?, StartTime=?, EndTime=? WHERE AppointmentID=?;";
+    $stmt3 = $conn->prepare($updquery);
+    $stmt3->bind_param("sssi", $NewAppDate, $StartTime, $EndTime, $pk);
+    $stmt3->execute();
     // re-run feature to check for conflicts on OldDate
     $all_appointments = "SELECT StartTime, EndTime, AppointmentID FROM appointments WHERE 
-    Staff_ID=$Staff AND AppDate='$OldDate' ORDER BY StartTime ASC;";
-    $result2 = mysqli_query($connection, $all_appointments);
+         Staff_ID=? AND AppDate=? ORDER BY StartTime ASC;";
+    $stmt4 = $conn->prepare($all_appointments);
+    $stmt4->bind_param("is", $Staff, $Date);
+    $stmt4->execute();
+    $result = $stmt4->get_result();
     $Appointments = array();
-    while($row = mysqli_fetch_array($result2)) {
+    while($row = $result->fetch_array()) {
             $Appointments[] = $row;
     }
     if(count($Appointments)>1){
         $conflicts = find_conflicts($Appointments);
         for ($ii=0; $ii<count($conflicts[0]); $ii++){
             $temp1 = $conflicts[0][$ii];
-            $update = "UPDATE appointments SET Overlapping=1 WHERE AppointmentID=$temp1"; 
-            mysqli_query($connection, $update);
+            $update = "UPDATE appointments SET Overlapping=1 WHERE AppointmentID=?";
+            $stmt5 = $conn->prepare($update);
+            $stmt5->bind_param("i", $temp1);
+            $stmt5->execute();
         }
     }
     //if Date's been changed, update apps on new date to not conflicting and rerun feature to check for conflicts
     if ($OldDate != $NewAppDate) {
-        $update = "UPDATE appointments SET Overlapping=0 WHERE Staff_ID=$Staff AND AppDate='$NewAppDate';";
-    mysqli_query($connection, $update);
-    $all_appointments = "SELECT StartTime, EndTime, AppointmentID FROM appointments WHERE 
-    Staff_ID=$Staff AND AppDate='$NewAppDate' ORDER BY StartTime ASC;";
-    $result3 = mysqli_query($connection, $all_appointments);
-    $Appointments = array();
-    while($row = mysqli_fetch_array($result3)) {
+        $all_appointments2 = "SELECT StartTime, EndTime, AppointmentID FROM appointments WHERE 
+        Staff_ID=? AND AppDate=? ORDER BY StartTime ASC;";
+        $stmt5 = $conn->prepare($all_appointments);
+        $stmt5->bind_param("is", $Staff, $NewAppDate);
+        $stmt5->execute();
+        $result2 = $stmt5->get_result();
+        $Appointments = array();
+        while($row = $result2->fetch_array()) {
             $Appointments[] = $row;
-    }
+        }
     if(count($Appointments)>1){
         $conflicts = find_conflicts($Appointments);
         for ($ii=0; $ii<count($conflicts[0]); $ii++){
             $temp1 = $conflicts[0][$ii];
-            $update = "UPDATE appointments SET Overlapping=1 WHERE AppointmentID=$temp1"; 
-            mysqli_query($connection, $update);
+            $update = "UPDATE appointments SET Overlapping=1 WHERE AppointmentID=?";
+            $stmt5 = $conn->prepare($update);
+            $stmt5->bind_param("i", $temp1);
+            $stmt5->execute();
         }
     }
          
     }
        // Display success message
     header('Location: show_conflicts.php');
+    exit();
 }
 ?>
 

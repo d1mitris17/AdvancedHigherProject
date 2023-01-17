@@ -20,21 +20,13 @@ include 'loggedin.php';
         <li><a id="link" href="signout.php">Sign Out</a></li>
 </ul>
 <?php
-$serverAddress = "localhost";
-$serverUsername = "root";
-$serverPassword = "";
-$serverDB = "hospitalmanagementsystem";
-
-
-$connection = mysqli_connect($serverAddress, $serverUsername, $serverPassword, $serverDB);
-
-if(mysqli_connect_errno()){
-    die("Failed to connect".mysqli_connect_errno());
-}
+include 'connect_to_db.php';
 
 $all_conflicts = "SELECT * FROM Appointments WHERE Overlapping=1";
-$result = mysqli_query($connection, $all_conflicts);
-if(mysqli_num_rows($result)>0){
+$stmt = $conn->prepare($all_appointments);
+$stmt->execute();
+$result = $stmt->get_result();
+if($stmt->num_rows() > 0){
     echo "<h1>Conflicts have been detected</h1>";
     echo "<table>";
     echo '<tr>';
@@ -45,7 +37,7 @@ if(mysqli_num_rows($result)>0){
     echo '<th>EndTime</th>';
     echo '<th>AppDate</th>';
     echo '</tr>';
-    while($row=mysqli_fetch_array($result)){
+    while($row=$result->fetch_array()){
         echo '<tr>';
         echo '<td>' .$row['AppointmentID'].'</td>';
         echo '<td>' .$row['PatientID'].'</td>';
@@ -61,9 +53,9 @@ if(mysqli_num_rows($result)>0){
 }else{
     echo "<h1>No Conflicts in Appointments</h1>";
 }
-    
 
-mysqli_close($connection);
+
+$conn->close();
     
 ?>
 </body>
