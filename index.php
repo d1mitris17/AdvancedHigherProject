@@ -48,20 +48,30 @@ if(isset($_POST['login'])) {
 <head>
     <title>Log in - Exemplar Healthcare</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@500&display=swap');
+    </style>
 </head>
 <body>
-    <div class="details-form">
-        <img src="images/logo.png" alt="logo">
-        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="POST">
-            <input name="username" type="text" placeholder="Username">
-            <br><br>
-            <input type="password" name="password" placeholder="Password">
-            <br><br>
-            <input type="submit" name="login" id="login" value="Log in">
-            <br><br>
-        </form>
-    </div>
 
+    <div class="pos">
+        <div class="log-in-form">
+            <img src="images/logo.png" alt="logo">
+            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="POST">
+                <input name="username" type="text" placeholder="Username">
+                <br><br>
+                <input type="password" name="password" placeholder="Password">
+                <br><br>
+                <input type="submit" name="login" id="login" value="Log in">
+                <br><br>
+            </form>
+        </div>
+    </div>
 
 </body>
 </html>

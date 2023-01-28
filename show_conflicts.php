@@ -8,6 +8,13 @@ include 'loggedin.php';
 <head>
     <title>Home Page</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@500&display=swap');
+    </style>
 </head>
 <body>
 <ul class="nav-bar">
@@ -23,10 +30,11 @@ include 'loggedin.php';
 include 'connect_to_db.php';
 
 $all_conflicts = "SELECT * FROM Appointments WHERE Overlapping=1";
-$stmt = $conn->prepare($all_appointments);
+$stmt = $conn->prepare($all_conflicts);
 $stmt->execute();
 $result = $stmt->get_result();
-if($stmt->num_rows() > 0){
+
+if($result->num_rows > 0){
     echo "<h1>Conflicts have been detected</h1>";
     echo "<table>";
     echo '<tr>';
