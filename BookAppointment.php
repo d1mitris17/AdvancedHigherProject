@@ -17,15 +17,32 @@ include 'loggedin.php';
     </style>
 </head>
 <body>
-    <ul class="nav-bar">
-        <li><a href="home.php"><img src="images/logo.png" alt="logo"></a></li>
-        <li><a id="link" href="profile.php">Profile</a></li>
-        <li><a id="link" href="BookAppointment.php">Book an Appointment</a></li>
-        <li><a id="link" href="show_conflicts.php">Show Conflicts</a></li>
-        <li><a id="link" href="NewPatientAccountForm.php">Add Patient</a></li>
-        <li><a id="link" href="NewStaffForm.php">Add Hospital Staff</a></li>
-        <li><a id="link" href="signout.php">Sign Out</a></li>
-    </ul>  
+<div class="topnav" id="myTopnav">
+        <a href="home.php">Home</a>
+        <a href="profile.php">Profile</a>
+        <a class='active' href="BookAppointment.php">Book an Appointment</a>
+        <a href="show_conflicts.php">Show Conflicts</a>
+        <a href="NewPatientAccountForm.php">Add Patient</a>
+        <a href="NewStaffForm.php">Add Hospital Staff</a>
+        <a href="signout.php">Sign Out</a>
+        <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+        <i class="fa fa-bars"></i>
+        </a>
+    </div>
+
+
+    <script type="text/javascript">
+        function myFunction() {
+            var x = document.getElementById("myTopnav");
+            if (x.className === "topnav") {
+                x.className += " responsive";
+            } else {
+                x.className = "topnav";
+            }
+    }
+    </script>
+    <div class="BookAppointment">
+    <div style="overflow-x:auto;">
     <h1>Choose Patient: </h1>
     <?php
 
@@ -47,11 +64,11 @@ include 'loggedin.php';
         echo("</tr>");
         while($row = $result->fetch_assoc()){
             echo "<tr>";
-            echo "<td>".$row['PatientID']."</td>";
-            echo "<td>".$row['Fname']."</td>";
-            echo "<td>".$row['Surname']."</td>";
-            echo "<td>".$row['EmailAddress']."</td>";
-            echo "<td>".$row['DateofBirth']."</td>";
+            echo "<td>".$row['PatientID']." </td>";
+            echo "<td>".$row['Fname']." </td>";
+            echo "<td>".$row['Surname']." </td>";
+            echo "<td>".$row['EmailAddress']." </td>";
+            echo "<td>".$row['DateofBirth']." </td>";
             echo "<td>".$row['Sex']."</td>";
             echo "<td><a href='http://localhost/projects/AdvancedHigherProject/BookAppointment2.php?id=".$row['PatientID']."'>Select</a></td>";
             echo "</tr>";
@@ -59,6 +76,7 @@ include 'loggedin.php';
     }
     $conn->close();
     ?>
-
+    </div>
+    </div>
 </body>
 </html>

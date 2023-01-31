@@ -18,18 +18,35 @@ include 'loggedin.php';
     </style>
 <body>
 
-<ul class="nav-bar">
-        <li><a href="home.php"><img src="images/logo.png" alt="logo"></a></li>
-        <li><a id="link" href="profile.php">Profile</a></li>
-        <li><a id="link" href="BookAppointment.php">Book an Appointment</a></li>
-        <li><a id="link" href="show_conflicts.php">Show Conflicts</a></li>
-        <li><a id="link" href="NewPatientAccountForm.php">Add Patient</a></li>
-        <li><a id="link" href="NewStaffForm.php">Add Hospital Staff</a></li>
-        <li><a id="link" href="signout.php">Sign Out</a></li>
-</ul>  
+    <div class="topnav" id="myTopnav">
+        <a href="home.php">Home</a>
+        <a href="profile.php">Profile</a>
+        <a class='active' href="BookAppointment.php">Book an Appointment</a>
+        <a href="show_conflicts.php">Show Conflicts</a>
+        <a href="NewPatientAccountForm.php">Add Patient</a>
+        <a href="NewStaffForm.php">Add Hospital Staff</a>
+        <a href="signout.php">Sign Out</a>
+        <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+        <i class="fa fa-bars"></i>
+        </a>
+    </div>
 
-    <div class="details-form">
+
+    <script type="text/javascript">
+        function myFunction() {
+            var x = document.getElementById("myTopnav");
+            if (x.className === "topnav") {
+                x.className += " responsive";
+            } else {
+                x.className = "topnav";
+            }
+    }
+    </script> 
+
+    <div class="BookAppointment2">
     <form action="FinaliseAppointment.php" method="POST">
+        <h1>Enter Appointment Details</h1>
+        <br>
         <label for="doctor">Doctor: </label>
         <?php
 
