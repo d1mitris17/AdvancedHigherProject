@@ -70,8 +70,9 @@ include 'loggedin.php';
             <button id="myButton" class="center submit-button" >Show me all Appointments</button>
             <script type="text/javascript">
             document.getElementById("myButton").onclick = function () {
-            location.href ="AllAppointments.php";
+            location.href ="all_appointments.php";
             };
+            </script>
         </div>
 
        

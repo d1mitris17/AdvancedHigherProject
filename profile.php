@@ -66,7 +66,7 @@ include 'loggedin.php';
         };
         </script>
         <h1>Profile Details</h1>
-        <form action="" method="POST">
+        <form action="" method="POST" id="Dis">
         <label for="Fname">First Name: </label>
         <input type="text" name="Fname" value="'.$Fname.'" disabled>
         <br><br>

@@ -14,6 +14,7 @@ include 'loggedin.php';
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@500&display=swap');
     </style>
+    <script defer src="form_validation_EditableAppointment.js"></script>
 </head>
 <body>
     <div class="topnav" id="myTopnav">
@@ -96,7 +97,7 @@ include 'loggedin.php';
             while($row = $result2->fetch_array()) {
                 $Appointments2[] = $row;
             }
-        if(count($Appointments2)>1){
+            if(count($Appointments2)>1){
             $conflicts = find_conflicts($Appointments2);
             for ($ii=0; $ii<count($conflicts[0]); $ii++){
                 $temp1 = $conflicts[0][$ii];
@@ -109,9 +110,9 @@ include 'loggedin.php';
              
         }
            // Display success message
-        // header('Location: show_conflicts.php');
-        // exit();
-    }
+        header('Location: show_conflicts.php');
+        exit();
+        }
     
     $sql_query = "SELECT AppDate, StartTime, EndTime, AppointmentID, Staff_ID FROM appointments WHERE AppointmentID=?";
     $stmt = $conn->prepare($sql_query);
@@ -128,23 +129,24 @@ include 'loggedin.php';
         <h1>Appointment Details</h1>
         <input type="hidden" name="OldDate" value="'.$AppDate.'">
         <label for="AppDate">Appointment Date: </label>
-        <input type="date" name="AppDate" value="'.$AppDate.'" required>
+        <input type="date" name="AppDate" value="'.$AppDate.'" id="AppDate">
         <br><br>
         <label for="StartTime">Start Time: </label>
-        <input type="time" name="StartTime" value="'.$StartTime.'" required>
+        <input type="time" name="StartTime" value="'.$StartTime.'" id="StartTime">
         <br><br>
         <label for="EndTime">End Time: </label>
-        <input type="time" name="EndTime" value="'.$EndTime.'" required>
+        <input type="time" name="EndTime" value="'.$EndTime.'" id="EndTime">
         <br><br>
-        <input type="hidden" name="Staff_ID" value="'.$Staff_ID.'">
+        <input type="hidden" name="Staff_ID" value="'.$Staff_ID.'" id="Staff_ID">
         <input type="submit" id="UpdateButt" value="Update" name="update2">
-        </form>';
+        </form>
+        <div id="error"></div>';
         } else{
-            // header('Location: home.php');
+            header('Location: home.php');
             exit();
         }
         
-    
+
 
     function find_conflicts($Appointments){
         $conflicts = array();

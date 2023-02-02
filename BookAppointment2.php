@@ -16,6 +16,7 @@ include 'loggedin.php';
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@500&display=swap');
     </style>
+    <script defer src="form_validation_BookAppointment2.js"></script>
 <body>
 
     <div class="topnav" id="myTopnav">
@@ -44,7 +45,7 @@ include 'loggedin.php';
     </script> 
 
     <div class="BookAppointment2">
-    <form action="FinaliseAppointment.php" method="POST">
+    <form action="FinaliseAppointment.php" method="POST" id="form">
         <h1>Enter Appointment Details</h1>
         <br>
         <label for="doctor">Doctor: </label>
@@ -72,11 +73,12 @@ include 'loggedin.php';
         <input type="time" name="EndTime" id="end_time" min="09:00" min="17:00">
         <br><br>
         <label for="date">Date: </label>
-        <input type='date' name="date" min="<?php echo date('Y-m-d', strtotime(date('Y-m-d').'+ 1 days'));?>" value="<?php echo date('Y-m-d', strtotime(date('Y-m-d').'+ 1 days'));?>">
-        <input type="hidden" value="<?php echo $_GET['id']; ?>" name="patient_id">
+        <input type='date' id='date' name="date" min="<?php echo date('Y-m-d', strtotime(date('Y-m-d').'+ 1 days'));?>" value="<?php echo date('Y-m-d', strtotime(date('Y-m-d').'+ 1 days'));?>">
+        <input type="hidden" id="patient_id" value="<?php echo $_GET['id']; ?>" name="patient_id">
         <br><br>
         <input type="submit" name="Book" value="Book" id="login">
     </form>
+    <div id="error"></div>
     </div>
     
 

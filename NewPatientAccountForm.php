@@ -15,6 +15,7 @@ include 'loggedin.php';
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@500&display=swap');
     </style>
+    <script defer src="form_validation_NewPatientAccountForm.js"></script>
 </head>
 <body>
 
@@ -45,24 +46,26 @@ include 'loggedin.php';
     
     <div class="addEntry">
         <div class="container">
-        <form action="NewPatientAccountForm.php" method="POST">
-            <input name="name" type="text" placeholder="Name" required>
-            <input name="surname" type="text" placeholder="Surname" required>
+        <form action="NewPatientAccountForm.php" method="POST" id="form">
+            <input name="name" type="text" placeholder="Name" id="name">
+            <input name="surname" type="text" placeholder="Surname" id="surname">
             <br><br>
-            <input name="email" type="email" placeholder="Email" required>
-            <input name="dob" type="date" placeholder="Date Of Birth" max="2023-12-31" required>
+            <input name="email" type="email" placeholder="Email" id="email">
+            <input name="dob" type="date" placeholder="Date Of Birth" max="2023-12-31" id="dob">
             <br><br>
-            <input type="password" name="password" required placeholder="Password">
+            <input type="password" name="password" id="password" placeholder="Password">
             <br><br>
             <label for="sex">Sex:</label>
-            <select name="sex" id="sex" required >
+            <select name="sex" id="sex" id="sex" >
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
             </select>
             <br><br>
             <input type="submit" name="Register" id="Register" value="Register">
         </form>
+        
     </div>
+    <div id="error"></div>
     <?php
 
     include 'connect_to_db.php';

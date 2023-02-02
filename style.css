@@ -10,6 +10,11 @@ body {
     background: #4abdac;
 }
 
+#error{
+    text-align: center;
+    color: black;
+}
+
 /* Log in page */
 
 .pos {
@@ -49,7 +54,7 @@ body {
 }
 
 .pos .log-in-form form #login:hover{
-    color: black;
+    opacity: 50%;
 }
 
 @media screen and (max-width:27.313rem){
@@ -244,6 +249,12 @@ body {
     width: 40rem;
     height: 18rem;
     color: #dfdce3;
+}
+
+.profilecontainer #update-form #Dis input:hover,
+.profilecontainer #update-form #Dis select:hover{
+    cursor: not-allowed;
+
 }
 
 .profilecontainer #update-form h1{
@@ -649,3 +660,141 @@ body {
     
     
  }
+
+
+ .all_appointments{
+    display: grid;
+    justify-content: center;
+}
+
+.all_appointments .container { 
+    text-align: center;
+    margin: 0.5rem;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    background-color: #29685f;
+    width: 50rem;
+}
+
+.all_appointments .container .filter{
+    color: #dfdce3;
+}
+
+.all_appointments .container h1{ 
+    color: #dfdce3;
+}
+
+.all_appointments .container table{
+    margin-top: 1rem;
+}
+
+.all_appointments .container table th,
+.all_appointments .container table tr{
+    padding: 0.5rem;
+    text-align: center;
+    margin-bottom: 8rem;
+    color: #dfdce3;
+}
+
+.all_appointments .container table tr td #Edit{
+    text-decoration: none;
+    padding-right: 0.3rem;
+    padding-left: 0.3rem;
+    margin-left: 0.5rem;
+    background-color: #000;
+    color: #dfdce3;
+    border-radius: 0.2rem;
+}
+
+.all_appointments .container table tr td #Edit:hover{
+    background-color: rgba(0, 0, 0, 0.500);
+}
+
+.all_appointments .container table tr #Delete{ 
+    text-decoration: none;
+    padding-right: 0.3rem;
+    padding-left: 0.3rem;
+    background-color: #000;
+    margin-left: 0.55rem;
+    color: #dfdce3;
+    background-color: #ff002b;
+    border-radius: 0.2rem;
+}
+
+.all_appointments .container table tr #Delete:hover{ 
+    background-color: #ff002bb0;
+}
+
+@media only screen and (max-width:53rem) {
+
+    .all_appointments .container{ 
+        width: 35rem;
+        font-size: 0.9rem;
+    }
+
+    .all_appointments .container table{
+        margin-top: 0rem;
+    }
+    
+    .all_appointments .container table th,
+    .all_appointments .container table tr{
+        padding: 0.05rem;
+        margin-bottom: 1rem;
+    }
+    
+    .all_appointments .container table tr td #Edit{
+        padding-right: 0.1rem;
+        padding-left: 0.1rem;
+        margin-left: 0.2rem;
+        border-radius: 0.1rem;
+    }
+   
+    
+    .all_appointments .container table tr #Delete{ 
+        text-decoration: none;
+        padding-right: 0.3rem;
+        padding-left: 0.3rem;
+        margin-left: 0.55rem;
+        border-radius: 0.2rem;
+    }
+    
+}
+
+@media only screen and (max-width:36.25rem) {
+
+    .all_appointments .container{ 
+        width: 19.375rem;
+        font-size: 0.45rem;
+    }
+
+    .all_appointments .container table{
+        margin-top: 0rem;
+    }
+    
+    .all_appointments .container table th,
+    .all_appointments .container table tr{
+        padding: 0.05rem;
+        margin-bottom: 1rem;
+    }
+    
+    .all_appointments .container table tr td #Edit{
+        padding-right: 0.1rem;
+        padding-left: 0.1rem;
+        margin-left: 0.2rem;
+        border-radius: 0.1rem;
+    }
+   
+    
+    .all_appointments .container table tr #Delete{ 
+        text-decoration: none;
+        padding-right: 0.3rem;
+        padding-left: 0.3rem;
+        background-color: #000;
+        margin-left: 0.55rem;
+        color: #dfdce3;
+        background-color: #ff002b;
+        border-radius: 0.2rem;
+    }
+    
+}
+

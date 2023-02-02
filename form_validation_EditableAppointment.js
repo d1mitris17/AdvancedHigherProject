@@ -8,21 +8,23 @@ const invalid_chars = []
 
 form.addEventListener('submit', (e) =>{
     let messages = []
-    if (AppDate.value == '' || AppDate.value ==null) {
+    if (AppDate.value === '' || AppDate.value ==null) {
         messages.push('AppDate is required')
     }
 
-    if (StartTime.value == '' || StartTime.value ==null) {
+    if (StartTime.value === '' || StartTime.value ==null) {
         messages.push('Start time is required')
     }
 
-    if (EndTime.value == '' || EndTime.value ==null) {
+    if (EndTime.value === '' || EndTime.value ==null) {
         messages.push('End time is required')
+    }else if (EndTime.value < StartTime.value) {
+        messages.push("Appointment can't end before it starts")
     }
 
     if (messages.length > 0) {
         e.preventDefault()
-        errorElement.innerText = messages.join(', ')
+        errorElement.innerText = messages.join('\n ')
     } 
 
 

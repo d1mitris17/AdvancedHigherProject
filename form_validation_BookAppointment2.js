@@ -1,6 +1,6 @@
 const doctor = document.getElementById('doctor')
-const start_time = document.getElementById('StartTime')
-const end_time = document.getElementById('EndTime')
+const start_time = document.getElementById('start_time')
+const end_time = document.getElementById('end_time')
 const date = document.getElementById('date')
 const patient_id = document.getElementById('patient_id')
 const form = document.getElementById('form')
@@ -20,6 +20,8 @@ form.addEventListener('submit', (e) =>{
 
     if (end_time.value == '' || end_time.value ==null) {
         messages.push('End time is required')
+    }else if (end_time.value < start_time.value) {
+        messages.push("Appointment can't end before it starts")
     }
 
     if (date.value == '' || date.value ==null) {
@@ -34,7 +36,7 @@ form.addEventListener('submit', (e) =>{
 
     if (messages.length > 0) {
         e.preventDefault()
-        errorElement.innerText = messages.join(', ')
+        errorElement.innerText = messages.join('\n ')
     } 
 
 

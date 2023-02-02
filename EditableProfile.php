@@ -14,6 +14,7 @@ include 'loggedin.php';
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@500&display=swap');
     </style>
+    <script defer src="form_validation_profile.js"></script>
 </head>
 <body>
 <div class="topnav" id="myTopnav">
@@ -92,28 +93,30 @@ include 'loggedin.php';
         location.href="profile.php";
         };
         </script>
-        <form action="EditableProfile.php" method="POST">
+        <form action="EditableProfile.php" method="POST" id="form">
         <h1>Profile Details</h1>
         <label for="Fname">First Name: </label>
-        <input type="text" name="Fname" value="'.$Fname.'" required>
+        <input type="text" name="Fname" id="Fname" value="'.$Fname.'" >
         <br><br>
         <label for="Surname">Surname: </label>
-        <input type="text" name="Surname" value="'.$Surname.'" required>
+        <input type="text" name="Surname" id="Surname" value="'.$Surname.'" >
         <br><br>
         <label for="Username">Username: </label>
-        <input type="text" name="Username" value="'.$Username.'" required>
+        <input type="text" name="Username" id="Username" value="'.$Username.'" >
         <br><br>
         <label for="DateOfBirth">Date of Birth: </label>
-        <input type="date" name="DateOfBirth" value="'.$DateofBirth.'" required>
+        <input type="date" name="DateOfBirth" id="DateOfBirth" value="'.$DateofBirth.'" >
         <br><br>
         <label for="Sex">Sex: </label>
-        <select name="Sex" required>
+        <select name="Sex" id="Sex">
             <option value="Male">Male</option>
             <option value="Female">Female</option>
         </select>
         <br>
         <input type="submit" id="Update" value="Update" name="update">
         </form>
+        <br><br>
+        <div id="error"></div>
         </div>';
         
         

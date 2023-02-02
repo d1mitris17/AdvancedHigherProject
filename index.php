@@ -30,14 +30,14 @@ if(isset($_POST['login'])) {
             session_destroy();
             echo '
             <script>
-                window.alert("Password is invalid")
+                window.alert("Username and Password are invalid")
             </script>';
         }
     } else{
         session_destroy();
         echo '
         <script>
-            window.alert("Username is invalid")
+            window.alert("Username and Password are invalid")
         </script>';
     }
     $conn->close();
@@ -48,7 +48,6 @@ if(isset($_POST['login'])) {
 <head>
     <title>Log in - Exemplar Healthcare</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -56,20 +55,23 @@ if(isset($_POST['login'])) {
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@500&display=swap');
     </style>
+    <script defer src="form_validation_index.js"></script>
 </head>
 <body>
 
     <div class="pos">
         <div class="log-in-form">
+            <br>
             <img src="images/logo.png" alt="logo">
-            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="POST">
-                <input name="username" type="text" placeholder="Username">
+            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="POST" id="form">
+                <input name="username" type="text" placeholder="Username" id="username">
                 <br><br>
-                <input type="password" name="password" placeholder="Password">
+                <input type="password" name="password" placeholder="Password" id="password" >
                 <br><br>
                 <input type="submit" name="login" id="login" value="Log in">
                 <br><br>
             </form>
+            <div id="error"></div>
         </div>
     </div>
 
