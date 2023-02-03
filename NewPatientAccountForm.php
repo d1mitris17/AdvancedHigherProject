@@ -49,18 +49,18 @@ include 'loggedin.php';
         <form action="NewPatientAccountForm.php" method="POST" id="form">
             <input name="name" type="text" placeholder="Name" id="name">
             <input name="surname" type="text" placeholder="Surname" id="surname">
-            <br><br>
+            <br>
+            <label for="dob" id="dob_label2">Date Of Birth</label>
+            <br>
             <input name="email" type="email" placeholder="Email" id="email">
             <input name="dob" type="date" placeholder="Date Of Birth" max="2023-12-31" id="dob">
-            <br><br>
-            <input type="password" name="password" id="password" placeholder="Password">
-            <br><br>
-            <label for="sex">Sex:</label>
+            <br>
+            <label for="sex" id="sex_label2">Sex:</label>
+            <br>
             <select name="sex" id="sex" id="sex" >
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
             </select>
-            <br><br>
             <input type="submit" name="Register" id="Register" value="Register">
         </form>
         

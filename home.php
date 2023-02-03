@@ -50,17 +50,20 @@ include 'loggedin.php';
 
             <div class="column">
                 <h2>Book Appointments</h2>
-                <img src="images/screenshot.png" alt="ex1" height="260rem" width="370rem">
+                <br>
+                <img src="images/home.png" alt="ex1" height="260rem" width="430rem">
             </div>
 
             <div class="column">
                 <h2>Conflict Detection</h2>
-                <img src="images/screenshot.png" alt="ex2" height="260rem" width="370rem">
+                <br>
+                <img src="images/conflicts.png" alt="ex2" height="140rem" width="520rem">
             </div>
 
             <div class="column">
                 <h2>Add Patients Easily</h2>
-                <img src="images/screenshot.png" alt="ex3" height="260rem" width="370rems">
+                <br>
+                <img src="images/add_patient.png" alt="ex3" height="280rem" width="370rems">
             </div>
 
         </script>

@@ -173,6 +173,22 @@ body {
 }
 
 
+@media screen and (max-width:75.5rem) {
+    .HomeContents #myButton{
+        border-radius: 1rem;
+        background-color: #29685f;
+        color: #dfdce3;
+        text-align: center;
+        position: absolute;
+        margin-top: 4.2rem;
+        left:33.33%;
+        width:33.33%;
+        height:3.5rem;
+        font-size: 1.5rem;
+        transition: transform 0.5s ease;
+    }
+}
+
 @media screen and (max-width:57.5rem) {
     .HomeContents .container{
         flex-wrap: wrap;
@@ -635,7 +651,38 @@ body {
     padding: 1rem;
 }
 
-.addEntry .container form input{
+.addEntry .container #dob_label{
+    position: relative;
+    font-size: 0.7rem;
+    right: 7.5rem;
+}
+
+.addEntry .container #dob_label2{
+    position: relative;
+    font-size: 0.7rem;
+    left: 2.5rem;
+}
+
+.addEntry .container #type_label{
+    position: relative;
+    font-size: 0.7rem;
+    right: 6.5rem;
+}
+
+.addEntry .container #sex_label{
+    position: relative;
+    font-size: 0.7rem;
+    right: 1.55rem;
+}
+
+.addEntry .container #sex_label2{
+    position: relative;
+    font-size: 0.7rem;
+    right: 9rem;
+}
+
+.addEntry .container form input,
+.addEntry .container form select{
    width: 10rem;
    height: 1.5rem;
    border-radius: 0.5rem;
@@ -652,7 +699,8 @@ body {
         padding: 0.8rem;
     }
     
-    .addEntry .container form input{
+    .addEntry .container form input,
+    .addEntry .container form select{
        width: 7rem;
        height: 1.5rem;
        border-radius: 0.4rem;

@@ -50,13 +50,22 @@ include 'loggedin.php';
             <input name="name" type="text" placeholder="Name" id="name">
             <input name="surname" type="text" placeholder="Surname" id="surname">
             <br><br>
-            <input name="username" type="text" placeholder="Username" id="username">
             <input type="password" name="password" placeholder="Password" id="password">
-            <br><br>
-            <input name="dob" type="date" placeholder="Date Of Birth" max="2023-12-31" id="dob">           
-            <input type="text" placeholder="Employee Type" name="type" id="type">
-            <br><br>
-            <label for="sex">Sex:</label>
+            <input type="password" name="confirm_password" placeholder="Confirm Password" id="confirm_password">
+            <br>
+            <label id="dob_label" for="dob">Date of Birth:</label>
+            <br>
+            <input name="dob" type="date" placeholder="Date Of Birth" max="2023-12-31" id="dob">
+            <input name="username" type="text" placeholder="Username" id="username">
+            <br>     
+            <label for="type" id="type_label" >Employee Type:</label>
+            <label for="sex" id="sex_label" >Sex:</label>
+            <br>
+            <select name="type" id="type">
+                <option value="Doctor">Doctor</option>
+                <option value="Nurse">Nurse</option>
+                <option value="Administrator">Administrator</option>
+            </select>
             <select name="sex" id="sex" >
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>

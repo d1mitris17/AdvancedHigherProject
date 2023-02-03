@@ -3,6 +3,7 @@ const surname = document.getElementById('surname')
 const email = document.getElementById('username')
 const dob = document.getElementById('dob')
 const password = document.getElementById('password')
+const password_conf = document.getElementById('confirm_password')
 const sex = document.getElementById('sex')
 const type = document.getElementById('type')
 const form = document.getElementById('form')
@@ -12,31 +13,35 @@ const invalid_chars = []
 
 form.addEventListener('submit', (e) =>{
     let messages = []
-    if (fname.value == '' || fname.value ==null) {
+    if (fname.value === '' || fname.value ==null) {
         messages.push('Name is required')
     }
 
-    if (surname.value == '' || surname.value ==null) {
+    if (surname.value === '' || surname.value ==null) {
         messages.push('Surname time is required')
     }
 
-    if (email.value == '' || email.value ==null) {
+    if (email.value === '' || email.value ==null) {
         messages.push('Email is required')
     }
 
-    if (dob.value == '' || dob.value ==null) {
+    if (dob.value === '' || dob.value ==null) {
         messages.push('Date of Birth is required')
     }
 
-    if (password.value == '' || patient_id.value ==null) {
+    if (password.value === '' || password.value ==null) {
         messages.push('Password is required')
+    }else if (password_conf.value === '' || password_conf.value ==null) {
+        messages.push('You must confirm password')
+    }else if (password_conf.value != password.value){
+        messages.push('Passwords do not match')
     }
 
-    if (sex.value == '' || sex.value ==null) {
+    if (sex.value === '' || sex.value ==null) {
         messages.push('Sex is required')
     }
 
-    if (type.value == '' || type.value ==null) {
+    if (type.value === '' || type.value ==null) {
         messages.push('Employee type is required')
     }
 
@@ -44,6 +49,5 @@ form.addEventListener('submit', (e) =>{
         e.preventDefault()
         errorElement.innerText = messages.join('\n ')
     } 
-
 
 })
